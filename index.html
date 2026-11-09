@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>365 Информатика — Лекции</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        royal: {
+                            50: '#f0f4fa',
+                            100: '#e1eaf6',
+                            200: '#dce4f2',
+                            500: '#1d56c9',
+                            600: '#0143b1',
+                            700: '#2845ad',
+                            800: '#172b75',
+                            900: '#0e1b4d',
+                        },
+                        gold: {
+                            100: '#fdf8e8',
+                            400: '#e5b842',
+                            500: '#d4af37',
+                            600: '#b59024',
+                        }
+                    },
+                    boxShadow: {
+                        'card': '0 10px 30px -5px rgba(1, 67, 177, 0.06), 0 4px 12px -2px rgba(1, 67, 177, 0.04)',
+                        'card-hover': '0 20px 40px -10px rgba(1, 67, 177, 0.14), 0 8px 16px -4px rgba(1, 67, 177, 0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f0f4fa;
+            color: #0f172a;
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f0f4fa;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #b8c9e8;
+            border-radius: 9999px;
+            border: 2px solid #f0f4fa;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0143b1;
+        }
+        .royal-gradient {
+            background: linear-gradient(135deg, #0143b1 0%, #2845ad 60%, #172b75 100%);
+        }
+        .gold-badge {
+            background: linear-gradient(135deg, #fdf8e8 0%, #faecc0 100%);
+            color: #967415;
+            border: 1px solid #e5b842;
+        }
+        .code-block {
+            background: #0f172a;
+            color: #e2e8f0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .card-transition {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-transition:hover {
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-royal-600 selection:text-white flex flex-col min-h-screen">
+
+    <!-- ВЕРХНЯЯ ИНФОРМАЦИОННАЯ ПАНЕЛЬ -->
+    <div class="bg-royal-900 text-royal-100 text-xs py-2.5 px-4 border-b border-royal-800">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-3">
+            <div class="flex items-center gap-3">
+                <span class="px-2.5 py-0.5 rounded-full bg-gold-500 text-royal-900 font-bold tracking-wide uppercase text-[11px]">
+                    <i class="fa-solid fa-graduation-cap mr-1"></i>3 курс • «Реклама и дизайн»
+                </span>
+                <span class="text-royal-200 hidden md:inline">Учебный план: 4 логических модуля • 16 лекций с материалами портала 365informatika</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="https://sites.google.com/view/365informatika/web-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D0%B8-frontend-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0?authuser=0" target="_blank" rel="noopener noreferrer" class="hover:text-gold-400 transition flex items-center gap-1.5 font-medium">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-gold-400"></i>
+                    <span>Материалы на Google Sites (365informatika)</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ЛИПКАЯ ШАПКА С ПОСТРАНИЧНОЙ НАВИГАЦИЕЙ ПО МОДУЛЯМ -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-royal-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between py-4 gap-4">
+                
+                <!-- Логотип и название -->
+                <div class="flex items-center justify-between">
+                    <a href="#" onclick="navigateToPage('overview'); return false;" class="flex items-center gap-3.5 group">
+                        <div class="w-12 h-12 rounded-2xl royal-gradient flex items-center justify-center text-white font-extrabold text-xl shadow-md group-hover:scale-105 transition">
+                            365
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-bold uppercase tracking-wider text-royal-600">Web-дизайн и Frontend-разработка</span>
+                            </div>
+                            <h1 class="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
+                                365 Информатика — Лекции
+                            </h1>
+                        </div>
+                    </a>
+
+                    <button onclick="openImportModal()" class="lg:hidden px-3.5 py-2 rounded-xl bg-royal-50 text-royal-600 font-semibold text-sm border border-royal-200 hover:bg-royal-100 transition">
+                        <i class="fa-solid fa-plus mr-1"></i> Материал
+                    </button>
+                </div>
+
+                <!-- Живой поиск по всем 16 лекциям и материалам -->
+                <div class="flex items-center gap-3 flex-1 max-w-2xl lg:justify-end">
+                    <div class="relative flex-1 max-w-md">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-royal-600/60"></i>
+                        <input 
+                            type="text" 
+                            id="globalSearch" 
+                            oninput="handleSearch(this.value)"
+                            placeholder="Поиск по 16 лекциям (CJM, Figma, Grid, Tilda, SEO)..." 
+                            class="w-full pl-11 pr-10 py-2.5 bg-royal-50/80 border border-royal-200 rounded-xl text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-royal-600 focus:ring-4 focus:ring-royal-600/10 transition"
+                        >
+                        <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    <button onclick="openImportModal()" class="hidden lg:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-royal-600 hover:bg-royal-700 text-white font-semibold text-sm shadow-sm transition shrink-0">
+                        <i class="fa-solid fa-folder-plus text-gold-400"></i>
+                        <span>Добавить ссылку</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Навигационное меню страниц (Отдельная страница на каждый модуль) -->
+            <nav class="flex items-center gap-2 overflow-x-auto py-3 border-t border-royal-100" aria-label="Страницы модулей">
+                <button onclick="navigateToPage('overview')" data-page="overview" class="page-tab px-4 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition flex items-center gap-2 bg-royal-600 text-white shadow-sm">
+                    <i class="fa-solid fa-compass"></i>
+                    <span>Обзор курса и Модули</span>
+                </button>
+                <button onclick="navigateToPage('mod-1')" data-page="mod-1" class="page-tab px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition flex items-center gap-2 text-slate-700 hover:bg-royal-50 hover:text-royal-600">
+                    <span class="w-5 h-5 rounded-md bg-royal-100 text-royal-700 text-xs font-extrabold flex items-center justify-center">1</span>
+                    <span>Модуль 1: UX и Аналитика</span>
+                    <span class="text-xs opacity-75">(Лекции 1–4)</span>
+                </button>
+                <button onclick="navigateToPage('mod-2')" data-page="mod-2" class="page-tab px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition flex items-center gap-2 text-slate-700 hover:bg-royal-50 hover:text-royal-600">
+                    <span class="w-5 h-5 rounded-md bg-royal-100 text-royal-700 text-xs font-extrabold flex items-center justify-center">2</span>
+                    <span>Модуль 2: UI и Концепция</span>
+                    <span class="text-xs opacity-75">(Лекции 5–8)</span>
+                </button>
+                <button onclick="navigateToPage('mod-3')" data-page="mod-3" class="page-tab px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition flex items-center gap-2 text-slate-700 hover:bg-royal-50 hover:text-royal-600">
+                    <span class="w-5 h-5 rounded-md bg-royal-100 text-royal-700 text-xs font-extrabold flex items-center justify-center">3</span>
+                    <span>Модуль 3: Frontend для дизайнеров</span>
+                    <span class="text-xs opacity-75">(Лекции 9–13)</span>
+                </button>
+                <button onclick="navigateToPage('mod-4')" data-page="mod-4" class="page-tab px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition flex items-center gap-2 text-slate-700 hover:bg-royal-50 hover:text-royal-600">
+                    <span class="w-5 h-5 rounded-md bg-royal-100 text-royal-700 text-xs font-extrabold flex items-center justify-center">4</span>
+                    <span>Модуль 4: No-Code и Запуск</span>
+                    <span class="text-xs opacity-75">(Лекции 14–16)</span>
+                </button>
+                <button onclick="navigateToPage('resources')" data-page="resources" class="page-tab px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition flex items-center gap-2 text-slate-700 hover:bg-royal-50 hover:text-royal-600">
+                    <i class="fa-solid fa-laptop-code text-royal-600"></i>
+                    <span>Тренажеры, Справочники и Песочница</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- =========================================================
+         ОСНОВНОЙ КОНТЕЙНЕР СТРАНИЦ
+         ========================================================= -->
+    <main class="flex-1">
+
+        <!-- БАННЕР РЕЗУЛЬТАТОВ ПОИСКА (Показывается при вводе запроса) -->
+        <section id="searchResultsSection" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+            <div class="bg-white border-2 border-royal-600 rounded-3xl p-6 shadow-card flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-3.5">
+                    <div class="w-12 h-12 rounded-2xl bg-royal-50 text-royal-600 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-royal-600">Глобальный поиск по программе курса</span>
+                        <h2 class="text-lg font-extrabold text-slate-900" id="searchStatusTitle">Результаты поиска</h2>
+                    </div>
+                </div>
+                <button onclick="clearSearch()" class="px-5 py-2.5 rounded-xl bg-royal-600 hover:bg-royal-700 text-white font-bold text-xs sm:text-sm transition">
+                    Закрыть поиск и вернуться к модулю
+                </button>
+            </div>
+            <div id="searchResultsGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-8"></div>
+        </section>
+
+        <!-- =========================================================
+             СТРАНИЦА 0: ОБЗОР КУРСА, КАРТОЧКИ 4 МОДУЛЕЙ И ТАБЛИЦА СРАВНЕНИЯ
+             ========================================================= -->
+        <div id="page-overview" class="spa-page">
+            <!-- Hero блок -->
+            <section class="royal-gradient text-white py-14 lg:py-16 border-b border-royal-800 relative overflow-hidden">
+                <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-white/5 blur-2xl pointer-events-none"></div>
+                <div class="absolute -bottom-32 left-1/3 w-80 h-80 rounded-full bg-gold-500/10 blur-2xl pointer-events-none"></div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                        <div class="lg:col-span-8 space-y-6">
+                            <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm">
+                                <span class="w-2 h-2 rounded-full bg-gold-400"></span>
+                                <span class="text-xs font-semibold tracking-wider uppercase text-royal-50">Специальный курс • 3 курс направления «Реклама и дизайн»</span>
+                            </div>
+
+                            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+                                Учебный план лекций по веб-дизайну и Frontend-разработке
+                            </h2>
+
+                            <p class="text-royal-100 text-base sm:text-lg max-w-3xl leading-relaxed">
+                                Курс ориентирован на создание коммерчески успешных цифровых продуктов, где визуальная эстетика тесно связана с маркетинговыми целями и технической реализацией. Вся программа разбита на <strong>4 логических модуля (16 лекций)</strong>, плавно переводящих студента от проектирования интерфейсов к их сборке.
+                            </p>
+
+                            <div class="flex flex-wrap gap-3 pt-2">
+                                <button onclick="navigateToPage('mod-1')" class="px-6 py-3.5 rounded-2xl bg-white text-royal-700 font-extrabold text-sm shadow-lg hover:bg-royal-50 transition flex items-center gap-2">
+                                    <span>Начать с Модуля 1</span>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                                <button onclick="navigateToPage('resources')" class="px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 transition flex items-center gap-2">
+                                    <i class="fa-solid fa-layer-group text-gold-400"></i>
+                                    <span>Все справочники и тренажеры 365informatika</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Карточка прогресса 16 лекций -->
+                        <div class="lg:col-span-4">
+                            <div class="bg-white text-slate-900 rounded-3xl p-7 shadow-2xl border border-royal-200 space-y-6">
+                                <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                                    <div>
+                                        <span class="text-xs font-bold uppercase tracking-wider text-royal-600">Образовательный трекер</span>
+                                        <h3 class="text-lg font-extrabold text-slate-900">Освоение учебного плана</h3>
+                                    </div>
+                                    <div class="w-12 h-12 rounded-2xl bg-royal-50 border border-royal-200 flex items-center justify-center text-royal-600 font-extrabold text-base" id="progressPercentBadge">
+                                        0%
+                                    </div>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-xs font-semibold text-slate-600">
+                                        <span>Пройдено лекций</span>
+                                        <span id="progressCountText">0 из 16</span>
+                                    </div>
+                                    <div class="w-full h-3 bg-royal-50 rounded-full overflow-hidden border border-royal-100">
+                                        <div id="progressBarFill" class="h-full royal-gradient rounded-full transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3 pt-1">
+                                    <div class="p-3.5 rounded-2xl bg-royal-50/70 border border-royal-100">
+                                        <div class="text-2xl font-extrabold text-royal-600">4</div>
+                                        <div class="text-xs font-semibold text-slate-600 mt-0.5">Тематических модуля</div>
+                                    </div>
+                                    <div class="p-3.5 rounded-2xl bg-royal-50/70 border border-royal-100">
+                                        <div class="text-2xl font-extrabold text-royal-600" id="statLecturesTotal">16</div>
+                                        <div class="text-xs font-semibold text-slate-600 mt-0.5">Лекций с конспектами</div>
+                                    </div>
+                                    <div class="p-3.5 rounded-2xl bg-royal-50/70 border border-royal-100">
+                                        <div class="text-2xl font-extrabold text-royal-600">48+</div>
+                                        <div class="text-xs font-semibold text-slate-600 mt-0.5">Прикрепленных ресурсов</div>
+                                    </div>
+                                    <div class="p-3.5 rounded-2xl bg-royal-50/70 border border-royal-100">
+                                        <div class="text-2xl font-extrabold text-royal-600">Live</div>
+                                        <div class="text-xs font-semibold text-slate-600 mt-0.5">Песочница кода</div>
+                                    </div>
+                                </div>
+
+                                <div class="pt-1 flex items-center justify-between gap-2 text-xs text-slate-500">
+                                    <span><i class="fa-solid fa-floppy-disk text-royal-600 mr-1"></i>Автосохранение прогресса</span>
+                                    <button onclick="resetProgress()" class="text-royal-600 hover:underline font-semibold">Сбросить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Контент главной страницы -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-20">
+                
+                <!-- Секция: Карточки 4 модулей с переходом на отдельные страницы -->
+                <section class="space-y-8">
+                    <div class="border-b-2 border-royal-200 pb-5 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                        <div class="space-y-2">
+                            <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-royal-600">
+                                <span class="w-2.5 h-2.5 rounded-sm bg-royal-600"></span>
+                                <span>Архитектура курса • 4 отдельных модуля</span>
+                            </div>
+                            <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                                Выберите модуль для перехода к лекциям и материалам
+                            </h3>
+                        </div>
+                        <p class="text-sm text-slate-600 max-w-md">
+                            Каждый модуль открывается на отдельной странице и содержит подробные конспекты, презентации, видео и интерактивные тренажеры с сайта 365informatika.
+                        </p>
+                    </div>
+
+                    <div id="modulesOverviewGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Генерируется через JS -->
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- =========================================================
+             СТРАНИЦА МОДУЛЯ (ДИНАМИЧЕСКАЯ ОТДЕЛЬНАЯ СТРАНИЦА ДЛЯ МОДУЛЕЙ 1, 2, 3, 4)
+             ========================================================= -->
+        <div id="page-module" class="spa-page hidden">
+            <!-- Шапка выбранного модуля -->
+            <section class="royal-gradient text-white py-12 border-b border-royal-800">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+                    <div class="flex flex-wrap items-center justify-between gap-4">
+                        <button onclick="navigateToPage('overview')" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-bold border border-white/15 transition">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            <span>Ко всем модулям учебного плана</span>
+                        </button>
+                        <div class="flex items-center gap-2" id="modulePagerTop">
+                            <!-- Кнопки переключения между модулями -->
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 max-w-4xl">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gold-500 text-royal-900 font-extrabold text-xs uppercase tracking-wider" id="modulePageBadge">
+                            Модуль 1 • 4 лекции
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight" id="modulePageTitle">
+                            Название модуля
+                        </h2>
+                        <p class="text-royal-100 text-base sm:text-lg leading-relaxed" id="modulePageDesc">
+                            Описание модуля
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Список лекций выбранного модуля с материалами 365informatika -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
+                <!-- Панель фильтрации внутри модуля -->
+                <div class="bg-white rounded-2xl p-5 border border-royal-200 shadow-sm flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-royal-50 text-royal-600 flex items-center justify-center font-extrabold">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs font-bold uppercase text-royal-600">Учебные материалы к каждой лекции</div>
+                            <div class="text-sm font-semibold text-slate-700">В каждой карточке доступны конспект, презентация/источник 365informatika, тренажер и видеоразбор</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 bg-royal-50 p-1.5 rounded-xl border border-royal-100">
+                        <button onclick="setLectureStatusFilter('all')" id="modFilterAll" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-royal-600 text-white transition">Все лекции</button>
+                        <button onclick="setLectureStatusFilter('todo')" id="modFilterTodo" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-royal-600 transition">Не изученные</button>
+                        <button onclick="setLectureStatusFilter('done')" id="modFilterDone" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-royal-600 transition">Изученные</button>
+                    </div>
+                </div>
+
+                <!-- Сетка лекций модуля (крупные карточки с полным списком материалов) -->
+                <div id="moduleLecturesContainer" class="space-y-8">
+                    <!-- Генерируется через JS -->
+                </div>
+
+                <!-- Нижняя навигация между модулями -->
+                <div id="moduleBottomNav" class="pt-6 border-t-2 border-royal-200 flex flex-wrap items-center justify-between gap-4">
+                    <!-- Генерируется через JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- =========================================================
+             СТРАНИЦА 5: ТРЕНАЖЕРЫ, СПРАВОЧНИКИ И LIVE-ПЕСОЧНИЦА (365INFORMATIKA)
+             ========================================================= -->
+        <div id="page-resources" class="spa-page hidden">
+            <section class="royal-gradient text-white py-12 border-b border-royal-800">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gold-500 text-royal-900 font-extrabold text-xs uppercase tracking-wider">
+                        База знаний 365informatika
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
+                        Интерактивные тренажеры, справочники, видеолекции и Live-Песочница
+                    </h2>
+                    <p class="text-royal-100 text-base sm:text-lg max-w-3xl leading-relaxed">
+                        Все практические ресурсы, игры по верстке (Flexbox Froggy, Grid Garden, CSS Diner), официальные спецификации (Doka, MDN, W3C) и интерактивный редактор кода на одной странице.
+                    </p>
+                </div>
+            </section>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 space-y-20">
+                
+                <!-- 1. Интерактивные курсы и игровые тренажеры -->
+                <section class="space-y-8">
+                    <div class="border-b-2 border-royal-200 pb-5 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                        <div class="space-y-1.5">
+                            <span class="text-xs font-bold uppercase tracking-wider text-royal-600">Практика в браузере</span>
+                            <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Интерактивные курсы и игровые тренажеры</h3>
+                        </div>
+                    </div>
+                    <div id="coursesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+                </section>
+
+                <!-- 2. Встроенная Live-Песочница кода -->
+                <section class="space-y-8">
+                    <div class="bg-white rounded-3xl border border-royal-200 shadow-card overflow-hidden">
+                        <div class="royal-gradient text-white px-6 sm:px-8 py-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                            <div class="space-y-1">
+                                <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gold-400">
+                                    <i class="fa-solid fa-bolt"></i>
+                                    <span>Практикум Модуля 2 и Модуля 3</span>
+                                </div>
+                                <h3 class="text-xl sm:text-2xl font-extrabold">
+                                    Живая песочница верстки (HTML5 + CSS3 Live Preview)
+                                </h3>
+                                <p class="text-royal-100 text-sm">
+                                    Протестируйте модульные сетки, воздух (отступы), Flexbox и CSS Grid прямо в браузере.
+                                </p>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="loadSandboxPreset('uiux')" class="px-3.5 py-2 rounded-xl bg-white text-royal-700 font-bold text-xs shadow-sm hover:bg-royal-50 transition">
+                                    1. Промо-карточка (UI и Воздух)
+                                </button>
+                                <button onclick="loadSandboxPreset('flex')" class="px-3.5 py-2 rounded-xl bg-white/15 hover:bg-white/25 text-white font-semibold text-xs border border-white/20 transition">
+                                    2. Навигация и Flexbox
+                                </button>
+                                <button onclick="loadSandboxPreset('grid')" class="px-3.5 py-2 rounded-xl bg-white/15 hover:bg-white/25 text-white font-semibold text-xs border border-white/20 transition">
+                                    3. Сетка CSS Grid
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-royal-200">
+                            <div class="lg:col-span-6 p-6 bg-slate-900 text-slate-100 flex flex-col justify-between space-y-4">
+                                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                                    <span class="text-xs font-mono uppercase tracking-wider text-gold-400 flex items-center gap-2">
+                                        <i class="fa-solid fa-code"></i> Исходный код HTML5 + CSS3
+                                    </span>
+                                    <button onclick="copySandboxCode()" class="text-xs text-slate-300 hover:text-white bg-slate-800 px-3 py-1 rounded-lg transition">
+                                        <i class="fa-regular fa-copy mr-1"></i> Скопировать код
+                                    </button>
+                                </div>
+                                <textarea 
+                                    id="sandboxEditor" 
+                                    oninput="updateSandboxPreview()"
+                                    rows="14" 
+                                    class="w-full bg-slate-950 text-emerald-300 font-mono text-xs sm:text-sm p-4 rounded-2xl border border-slate-800 focus:outline-none focus:border-royal-500 leading-relaxed resize-y"
+                                    spellcheck="false"
+                                ></textarea>
+                            </div>
+
+                            <div class="lg:col-span-6 p-6 bg-royal-50/50 flex flex-col space-y-4">
+                                <div class="flex items-center justify-between border-b border-royal-200 pb-3">
+                                    <span class="text-xs font-bold uppercase tracking-wider text-royal-700 flex items-center gap-2">
+                                        <i class="fa-solid fa-desktop"></i> Результат рендеринга
+                                    </span>
+                                    <span class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-semibold">Live Preview</span>
+                                </div>
+                                <div class="flex-1 bg-white rounded-2xl border border-royal-200 shadow-inner overflow-hidden min-h-[320px]">
+                                    <iframe id="sandboxFrame" title="Предпросмотр кода" class="w-full h-full min-h-[320px] border-0"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. Справочники, документация и инструменты дизайнера -->
+                <section class="space-y-8">
+                    <div class="border-b-2 border-royal-200 pb-5 space-y-1.5">
+                        <span class="text-xs font-bold uppercase tracking-wider text-royal-600">Настольная база</span>
+                        <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Справочники, документация и полезные сервисы</h3>
+                    </div>
+                    <div id="docsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                </section>
+
+                <!-- 4. Видеолекции и мастер-классы -->
+                <section class="space-y-8">
+                    <div class="border-b-2 border-royal-200 pb-5 space-y-1.5">
+                        <span class="text-xs font-bold uppercase tracking-wider text-royal-600">Визуальные практикумы</span>
+                        <h3 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Видеолекции и практические скринкасты</h3>
+                    </div>
+                    <div id="videosGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7"></div>
+                </section>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ПОДВАЛ САЙТА (FOOTER) -->
+    <footer class="royal-gradient text-white border-t border-royal-800 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-8 border-b border-white/15">
+                <div class="md:col-span-5 space-y-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-white text-royal-700 font-extrabold flex items-center justify-center text-lg">
+                            365
+                        </div>
+                        <span class="font-extrabold text-xl tracking-tight">365 Информатика — Лекции</span>
+                    </div>
+                    <p class="text-royal-100 text-sm leading-relaxed max-w-md">
+                        Образовательный портал по курсу «Веб-дизайн и Frontend-разработка» для студентов 3 курса направления «Реклама и дизайн». 4 модуля, 16 лекций и база материалов 365informatika.
+                    </p>
+                </div>
+
+                <div class="md:col-span-4 space-y-2">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-gold-400">Страницы модулей курса</h4>
+                    <ul class="space-y-2 text-sm text-royal-100">
+                        <li><button onclick="navigateToPage('mod-1')" class="hover:text-white transition">→ Модуль 1: Аналитика и UX-проектирование (Лекции 1–4)</button></li>
+                        <li><button onclick="navigateToPage('mod-2')" class="hover:text-white transition">→ Модуль 2: UI-дизайн и визуальная концепция (Лекции 5–8)</button></li>
+                        <li><button onclick="navigateToPage('mod-3')" class="hover:text-white transition">→ Модуль 3: Основы Frontend-разработки (Лекции 9–13)</button></li>
+                        <li><button onclick="navigateToPage('mod-4')" class="hover:text-white transition">→ Модуль 4: No-Code, Оптимизация и Запуск (Лекции 14–16)</button></li>
+                        <li><button onclick="navigateToPage('resources')" class="hover:text-white transition">→ Тренажеры, Справочники и Live-Песочница</button></li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-3 space-y-3">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-gold-400">Материалы 365informatika</h4>
+                    <p class="text-xs text-royal-100 leading-relaxed">
+                        Синхронизировано с разделом «Web-дизайн и Frontend-разработка» портала 365informatika.
+                    </p>
+                    <div class="flex flex-col gap-2 pt-1">
+                        <a href="https://sites.google.com/view/365informatika/web-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D0%B8-frontend-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0?authuser=0" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 rounded-xl bg-white text-royal-700 font-bold text-xs hover:bg-royal-50 transition text-center">
+                            Открыть 365informatika (Google Sites) ↗
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-royal-200">
+                <div>© 365 Информатика — Лекции • Программа для 3 курса направления «Реклама и дизайн».</div>
+                <div>Бело-синяя дизайн-система: #0143B1 • #2845AD • #FFFFFF</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =========================================================
+         МОДАЛЬНОЕ ОКНО ПОДРОБНОГО КОНСПЕКТА ЛЕКЦИИ И ЕЕ МАТЕРИАЛОВ
+         ========================================================= -->
+    <div id="lectureModal" class="fixed inset-0 z-50 hidden bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-royal-200 overflow-hidden my-auto">
+            
+            <div class="royal-gradient text-white px-6 sm:px-8 py-6 flex items-start justify-between gap-4 shrink-0">
+                <div class="space-y-1.5">
+                    <div class="flex flex-wrap items-center gap-2.5">
+                        <span id="modalLectureNum" class="px-3 py-0.5 rounded-full bg-gold-500 text-royal-900 font-extrabold text-xs uppercase">Лекция 1</span>
+                        <span id="modalLectureCat" class="text-xs font-semibold text-royal-100 uppercase tracking-wider">Модуль</span>
+                    </div>
+                    <h3 id="modalLectureTitle" class="text-xl sm:text-2xl font-extrabold leading-snug">Название лекции</h3>
+                </div>
+                <button onclick="closeLectureModal()" class="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition shrink-0" aria-label="Закрыть">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <div class="p-6 sm:p-8 overflow-y-auto space-y-6 text-slate-700 leading-relaxed" id="modalLectureBody">
+                <!-- Наполняется динамически -->
+            </div>
+
+            <div class="px-6 sm:px-8 py-4 bg-royal-50 border-t border-royal-200 flex flex-wrap items-center justify-between gap-4 shrink-0">
+                <button id="modalToggleReadBtn" onclick="toggleCurrentLectureRead()" class="px-5 py-2.5 rounded-xl font-bold text-sm transition flex items-center gap-2">
+                    <i class="fa-solid fa-check"></i>
+                    <span>Отметить лекцию как изученную</span>
+                </button>
+                <div class="flex items-center gap-3">
+                    <a id="modalExternalLink" href="https://sites.google.com/view/365informatika/web-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D0%B8-frontend-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0?authuser=0" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-white hover:bg-royal-100 text-royal-700 border border-royal-200 font-semibold text-sm transition">
+                        Страница курса на 365informatika ↗
+                    </a>
+                    <button onclick="closeLectureModal()" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-semibold text-sm transition">
+                        Закрыть
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         МОДАЛЬНОЕ ОКНО ДОБАВЛЕНИЯ МАТЕРИАЛА К ЛЕКЦИИ
+         ========================================================= -->
+    <div id="importModal" class="fixed inset-0 z-50 hidden bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-xl w-full flex flex-col shadow-2xl border border-royal-200 overflow-hidden my-auto">
+            <div class="royal-gradient text-white px-6 sm:px-8 py-6 flex items-start justify-between gap-4">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-gold-400">Пополнение материалов</span>
+                    <h3 class="text-xl font-extrabold mt-1">Прикрепить дополнительный материал к лекции</h3>
+                </div>
+                <button onclick="closeImportModal()" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form onsubmit="handleAddResourceToLecture(event)" class="p-6 sm:p-8 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Выберите лекцию (1–16)</label>
+                    <select id="resLectureSelect" class="w-full px-3.5 py-2.5 rounded-xl bg-royal-50 border border-royal-200 text-sm font-semibold text-slate-800 focus:outline-none focus:border-royal-600">
+                        <!-- Заполняется из JS -->
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Тип материала</label>
+                        <select id="resTypeSelect" class="w-full px-3.5 py-2.5 rounded-xl bg-royal-50 border border-royal-200 text-sm font-semibold text-slate-800 focus:outline-none focus:border-royal-600">
+                            <option value="Презентация 365">Презентация / Конспект 365</option>
+                            <option value="Тренажер">Интерактивный тренажер</option>
+                            <option value="Справочник">Справочник / Гайдлайн</option>
+                            <option value="Видеоразбор">Видеоразбор</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">Название ссылки *</label>
+                        <input type="text" id="resTitleInput" required placeholder="Например: Шаблон CJM в Figma" class="w-full px-4 py-2.5 rounded-xl bg-royal-50 border border-royal-200 text-sm focus:outline-none focus:bg-white focus:border-royal-600">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-600 mb-1.5">URL-адрес материала *</label>
+                    <input type="url" id="resUrlInput" required placeholder="https://..." class="w-full px-4 py-2.5 rounded-xl bg-royal-50 border border-royal-200 text-sm focus:outline-none focus:bg-white focus:border-royal-600">
+                </div>
+
+                <div class="pt-3 flex justify-end gap-3">
+                    <button type="button" onclick="closeImportModal()" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm transition">
+                        Отмена
+                    </button>
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-royal-600 hover:bg-royal-700 text-white font-bold text-sm shadow-md transition">
+                        Прикрепить к лекции
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ВСПЛЫВАЮЩЕЕ УВЕДОМЛЕНИЕ -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 hidden transform transition-all duration-300">
+        <div class="royal-gradient text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-white/20 flex items-center gap-3">
+            <i class="fa-solid fa-circle-check text-gold-400 text-lg"></i>
+            <span id="toastMessage" class="text-sm font-semibold">Действие выполнено</span>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         JAVASCRIPT: 4 МОДУЛЯ, 16 ЛЕКЦИЙ ПО ДОКУМЕНТУ И МАТЕРИАЛЫ С САЙТА 365INFORMATIKA
+         ========================================================= -->
+    <script>
+        const GOOGLE_SITES_URL = 'https://sites.google.com/view/365informatika/web-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD-%D0%B8-frontend-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0?authuser=0';
+
+        // ОПИСАНИЕ 4 МОДУЛЕЙ ИЗ УЧЕБНОГО ПЛАНА
+        const courseModules = [
+            {
+                id: 'mod-1',
+                num: 'Модуль 1',
+                lecturesCount: '4 лекции (Лекции 1–4)',
+                icon: 'fa-chart-line',
+                title: 'Аналитика и UX-проектирование в рекламе',
+                shortTitle: 'UX и Аналитика',
+                desc: 'Продуктовый подход в веб-дизайне, роль сайта в воронке продаж и коммуникационной стратегии бренда. Исследования аудитории (User Personas, CJM), информационная архитектура, вайрфреймы (F- и Z-паттерны) и UI-анимация удержания.',
+                highlights: ['Воронка продаж', 'User Personas и CJM', 'Wireframes (F/Z-паттерны)', 'UI-анимация и онбординг']
+            },
+            {
+                id: 'mod-2',
+                num: 'Модуль 2',
+                lecturesCount: '4 лекции (Лекции 5–8)',
+                icon: 'fa-bezier-curve',
+                title: 'UI-дизайн и визуальная концепция',
+                shortTitle: 'UI и Визуальная концепция',
+                desc: 'Модульные сетки (Bootstrap, CSS Grid), композиция и Mobile First. Типографика и психология цвета в рекламе, подготовка графики (SVG, WebP, AVIF), создание UI-китов и профессиональная работа в Figma (Variants, Auto Layout, Hand-off).',
+                highlights: ['Сетки и Mobile First', 'Типографика и Колористика', 'SVG, WebP, AVIF и UI-киты', 'Figma: Auto Layout и Hand-off']
+            },
+            {
+                id: 'mod-3',
+                num: 'Модуль 3',
+                lecturesCount: '5 лекций (Лекции 9–13)',
+                icon: 'fa-code',
+                title: 'Основы Frontend-разработки для дизайнеров',
+                shortTitle: 'Frontend для дизайнеров',
+                desc: 'Анатомия веб-страницы на HTML5 и семантические теги для SEO. Каскадные таблицы стилей CSS3 и блочная модель (Box Model). Современная верстка на Flexbox и CSS Grid, адаптивность через Media Queries и интерактивность на JavaScript (Swiper.js, GSAP).',
+                highlights: ['Семантика HTML5 и SEO', 'Базовый CSS3 и Box Model', 'Flexbox и CSS Grid', 'Media Queries и JS-анимации']
+            },
+            {
+                id: 'mod-4',
+                num: 'Модуль 4',
+                lecturesCount: '3 лекции (Лекции 14–16)',
+                icon: 'fa-rocket',
+                title: 'No-Code, Оптимизация и Запуск',
+                shortTitle: 'No-Code, SEO и Запуск',
+                desc: 'Быстрая сборка промо-сайтов на No-Code платформах (Tilda, Webflow, Framer). Оптимизация скорости Google PageSpeed, подключение Яндекс.Метрики, Google Analytics и пикселей соцсетей. Защита проекта арт-директору и тренды (AI, Web3, Three.js).',
+                highlights: ['Tilda, Webflow, Framer', 'PageSpeed и Веб-аналитика', 'Тегирование событий', 'Защита проектов, AI и Three.js']
+            }
+        ];
+
+        // ПОЛНАЯ БАЗА 16 ЛЕКЦИЙ ПО ПРИКРЕПЛЕННОМУ ДОКУМЕНТУ + ПРИКРЕПЛЕННЫЕ МАТЕРИАЛЫ С САЙТА 365INFORMATIKA
+        const lecturesData = [
+            // ================= МОДУЛЬ 1 (Лекции 1–4) =================
+            {
+                id: 'lec-1',
+                moduleId: 'mod-1',
+                number: 'Лекция 1',
+                title: 'Введение в современный веб-дизайн и продуктовый подход',
+                programText: 'Специфика web как медиа-среды. Различия между графическим и веб-дизайном. Роль сайта в воронке продаж и коммуникационной стратегии бренда.',
+                tags: ['Продуктовый подход', 'Медиа-среда Web', 'Воронка продаж', 'Стратегия бренда'],
+                materials: [
+                    { type: 'Материалы 365', title: 'Лекционные материалы на портале 365informatika', url: GOOGLE_SITES_URL, icon: 'fa-graduation-cap' },
+                    { type: 'Справочник', title: 'Дока: Дизайн цифровых продуктов и веб-среды', url: 'https://doka.guide/design/', icon: 'fa-book-open' },
+                    { type: 'Документация', title: 'MDN: Как работает Веб и клиент-серверная среда', url: 'https://developer.mozilla.org/ru/docs/Learn/Getting_started_with_the_web/How_the_Web_works', icon: 'fa-globe' },
+                    { type: 'Видеоразбор', title: 'Видео: Продуктовый веб-дизайн в рекламе и воронке продаж', url: 'https://www.youtube.com/results?search_query=%D0%BF%D1%80%D0%BE%D0%B4%D1%83%D0%BA%D1%82%D0%BE%D0%B2%D1%8B%D0%B9+%D0%B2%D0%B5%D0%B1+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD+%D0%B2%D0%BE%D1%80%D0%BE%D0%BD%D0%BA%D0%B0+%D0%BF%D1%80%D0%BE%D0%B4%D0%B0%D0%B6', icon: 'fa-circle-play' }
+                ],
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-extrabold text-royal-700">1. Специфика Web как интерактивной медиа-среды</h4>
+                        <p>В отличие от печатного плаката или наружной рекламы, веб-среда <strong>динамична, интерактивна и адаптивна</strong>. У веб-страницы нет фиксированного размера листа: она открывается на сотнях разных экранов, реагирует на действия пользователя и загружается в реальном времени.</p>
+                        <h4 class="text-lg font-extrabold text-royal-700 pt-2">2. Графический дизайн vs Веб-дизайн</h4>
+                        <ul class="list-disc pl-6 space-y-1.5">
+                            <li><strong>Графический дизайн:</strong> статический носитель (CMYK/RGB), фиксированная композиция, односторонняя коммуникация со зрителем.</li>
+                            <li><strong>Веб-дизайн (Product & Promo Design):</strong> проектирование сценариев поведения, состояний элементов (hover, focus, active), скорости загрузки и конверсионного пути.</li>
+                        </ul>
+                        <h4 class="text-lg font-extrabold text-royal-700 pt-2">3. Сайт в воронке продаж (AIDA) и стратегии бренда</h4>
+                        <p>Рекламный лендинг или продуктовый сайт переводит пользователя по этапам: <strong>Attention (Внимание на первом экране Hero) → Interest (Преимущества и УТП) → Desire (Кейсы, отзывы, демонстрация) → Action (Целевое действие / CTA-кнопка и лид-форма)</strong>.</p>
+                    </div>
+                `
+            },
+            {
+                id: 'lec-2',
+                moduleId: 'mod-1',
+                number: 'Лекция 2',
+                title: 'Исследования и UX-аналитика (User Experience)',
+                programText: 'Метод персонажей (User Personas), проектирование пользовательских путей (User Journey Mapping — CJM). Анализ конкурентов и построение информационной архитектуры.',
+                tags: ['UX-аналитика', 'User Personas', 'CJM', 'Информационная архитектура', 'Бенчмаркинг'],
+                materials: [
+                    { type: 'Материалы 365', title: 'Раздел UX-проектирования на 365informatika', url: GOOGLE_SITES_URL, icon: 'fa-graduation-cap' },
+                    { type: 'Шаблоны UX', title: 'Figma Community: Шаблоны CJM и User Personas', url: 'https://www.figma.com/community/search?resource_type=files&sort_by=relevancy&query=Customer+Journey+Map', icon: 'fa-sitemap' },
+                    { type: 'Справочник', title: 'Nielsen Norman Group: Руководство по CJM и персонам', url: 'https://www.nngroup.com/articles/customer-journey-mapping/', icon: 'fa-book-bookmark' },
+                    { type: 'Видеоразбор', title: 'Видео: Построение CJM и информационной архитектуры сайта', url: 'https://www.youtube.com/results?search_query=cjm+user+personas+ux+%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0', icon: 'fa-circle-play' }
+                ],
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-extrabold text-royal-700">1. Метод персонажей (User Personas)</h4>
+                        <p>Персона — это собирательный архетип целевого сегмента аудитории рекламной кампании. Включает демографию, контекст захода на сайт (с мобильного из таргетированной рекламы или с ПК из поиска), <strong>боли (Pains)</strong>, <strong>потребности (Gains)</strong> и барьеры к покупке.</p>
+                        <h4 class="text-lg font-extrabold text-royal-700 pt-2">2. Карта пути пользователя (CJM — Customer Journey Map)</h4>
+                        <p>Визуализация всех точек контакта человека с брендом: от первого клика по рекламному баннеру до оформления заказа и повторного возврата. Позволяет найти узкие места, где сайт теряет конверсию.</p>
+                        <h4 class="text-lg font-extrabold text-royal-700 pt-2">3. Информационная архитектура (IA)</h4>
+                        <p>Логическая иерархия разделов и экранов сайта, исключающая визуальный шум и путаницу в навигации.</p>
+                    </div>
+                `
+            },
+            {
+                id: 'lec-3',
+                moduleId: 'mod-1',
+                number: 'Лекция 3',
+                title: 'Прототипирование и логика интерфейсов',
+                programText: 'Создание low-fidelity (низкодетализированных) прототипов. Вайрфреймы (wireframes). Принципы юзабилити, паттерны сканирования страниц (F- и Z-паттерны). Основы веб-доступности (Accessibility).',
+                tags: ['Low-Fidelity', 'Wireframes', 'F- и Z-паттерны', 'Юзабилити', 'Accessibility (a11y)'],
+                materials: [
+                    { type: 'Материалы 365', title: 'Материалы по прототипированию на 365informatika', url: GOOGLE_SITES_URL, icon: 'fa-graduation-cap' },
+                    { type: 'Справочник', title: 'Дока: Веб-доступность (Accessibility / WCAG) простыми словами', url: 'https://doka.guide/a11y/', icon: 'fa-universal-access' },
+                    { type: 'Инструмент', title: 'Contrast Checker: Проверка контрастности по стандарту WCAG', url: 'https://webaim.org/resources/contrastchecker/', icon: 'fa-eye' },
+                    { type: 'Видеоразбор', title: 'Видео: Вайрфреймы, F- и Z-паттерны сканирования страницы', url: 'https://www.youtube.com/results?search_query=%D0%B2%D0%B0%D0%B9%D1%80%D1%84%D1%80%D0%B5%D0%B9%D0%BC%D1%8B+%D0%BF%D1%80%D0%BE%D1%82%D0%BE%D1%82%D0%B8%D0%BF%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5+f+%D0%B8+z+%D0%BF%D0%B0%D1%82%D1%82%D0%B5%D1%80%D0%BD%D1%8B', icon: 'fa-circle-play' }
+                ],
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-extrabold text-royal-700">1. Вайрфреймы (Wireframes) и Low-Fidelity прототипы</h4>
+                        <p>Схематичный черно-белый скелет страницы без финальных картинок и декора. Позволяет согласовать с заказчиком и маркетологом расположение смысловых блоков и кнопок до затрат времени на отрисовку UI.</p>
+                        <h4 class="text-lg font-extrabold text-royal-700 pt-2">2. Паттерны движения взгляда (Eye-Tracking)</h4>
+                        <ul class="list-disc pl-6 space-y-1.5">
+                            <li><strong>Z-паттерн:</strong> характерен для рекламных промо-лендингов с коротким текстом (Логотип слева → Меню/Телефон справа → Диагональ через главный оффер → Кнопка целевого действия внизу справа).</li>
+                            <li><strong>F-паттерн:</strong> характерен для текстовых страниц, блогов и каталогов (взгляд сканирует заголовки по левому краю).</li>
+                        </ul>
+                        <h4 class="text-lg font-extrabold text-royal-700 pt-2">3. Веб-доступность (Accessibility / a11y)</h4>
+                        <p>Соблюдение контрастности текста (минимум 4.5:1 по стандарту WCAG AA), понятные фокусы при навигации с клавиатуры и читаемые размеры кликабельных областей (не менее 44×44 px на смартфонах).</p>
+                    </div>
+                `
+            },
+            {
+                id: 'lec-4',
+                moduleId: 'mod-1',
+                number: 'Лекция 4',
+                title: 'UI-анимация и микровзаимодействия как инструмент удержания',
+                programText: 'Зачем нужна анимация в рекламе? Скрипты поведения интерфейса, онбординг пользователей, интерактивные подсказки и геймификация.',
+                tags: ['Микровзаимодействия', 'UI-анимация', 'Онбординг', 'Геймификация', 'Удержание (Retention)'],
+                materials: [
+                    { type: 'Материалы 365', title: 'Примеры интерактивных интерфейсов на 365informatika', url: GOOGLE_SITES_URL, icon: 'fa-graduation-cap' },
+                    { type: 'Справочник', title: 'Дока: Плавные переходы и ключевые кадры в вебе', url: 'https://doka.guide/css/animation/', icon: 'fa-wand-magic-sparkles' },
+                    { type: 'Вдохновение', title: 'LottieFiles: Легковесные векторные анимации для интерфейсов', url: 'https://lottiefiles.com/', icon: 'fa-film' },
+                    { type: 'Видеоразбор', title: 'Видео: Микровзаимодействия, геймификация и анимация в UI', url: 'https://www.youtube.com/results?search_query=ui+%D0%B0%D0%BD%D0%B8%D0%BC%D0%B0%D1%86%D0%B8%D1%8F+%D0%BC%D0%B8%D0%BA%D1%80%D0%BE%D0%B2%D0%B7%D0%B0%D0%B8%D0%BC%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F+%D0%B2+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5', icon: 'fa-circle-play' }
+                ],
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-extrabold text-royal-700">1. Роль микровзаимодействий в рекламном продукте</h4>
+                        <p>Микровзаимодействия (отклик кнопки при наведении, плавный прогресс-бар, анимация добавления товара в корзину) дают пользователю мгновенную обратную связь и снижают когнитивную нагрузку.</p>
+                        <h4 class="text-lg font-extrabold text-royal-700 pt-2">2. Онбординг и геймификация</h4>
+                        <p>Пошаговые интерактивные подсказки (tooltips), квиз-лендинги с расчетом стоимости и игровые механики (колесо бонусов, шкала прогресса) увеличивают время пребывания на сайте и повышают конверсию рекламного трафика.</p>
+                    </div>
+                `
+            },
+
+            // ================= МОДУЛЬ 2 (Лекции 5–8) =================
+            {
+                id: 'lec-5',
+                moduleId: 'mod-2',
+                number: 'Лекция 5',
+                title: 'Визуальный язык интерфейсов (UI)',
+                programText: 'Модульные сетки (Bootstrap, CSS Grid) и композиция на экране. Адаптивность и "Mobile First" подход. Работа с воздухом (отступами) и выравниванием.',
+                tags: ['Модульные сетки', '12 колонок Bootstrap', 'Mobile First', 'Воздух (Whitespace)', 'Правило внутреннего и внешнего'],
+                materials: [
+                    { type: 'Материалы 365', title: 'Лекция по сеткам и композиции на 365informatika', url: GOOGLE_SITES_URL, icon: 'fa-graduation-cap' },
+                    { type: 'Документация', title: 'Bootstrap Grid System: Классическая 12-колоночная сетка', url: 'https://getbootstrap.com/docs/5.3/layout/grid/', icon: 'fa-table-columns' },
+                    { type: 'Справочник', title: 'Дока: Правила композиции, отступов и модульных сеток', url: 'https://doka.guide/design/', icon: 'fa-ruler-combined' },
+                    { type: 'Видеоразбор', title: 'Видео: Модульные сетки в веб-дизайне и работа с воздухом', url: 'https://www.youtube.com/results?search_query=%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5+%D1%81%D0%B5%D1%82%D0%BA%D0%B8+%D0%B2+%D0%B2%D0%B5%D0%B1+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5+mobile+first', icon: 'fa-circle-play' }
+                ],
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-extrabold text-royal-700">1. Модульные сетки (12 колонок Bootstrap и CSS Grid)</h4>
+                        <p>Стандарт индустрии для десктопных макетов — 12-колоночная сетка (контейнер 1200–1280px, межколоночный отступ <code>gutter: 24px</code>). Число 12 легко делится на 2, 3, 4 и 6 равных карточек.</p>
+                        <h4 class="text-lg font-extrabold text-royal-700 pt-2">2. Подход Mobile First и система отступов 8pt</h4>
+                        <p>Проектирование начинается с компактного экрана смартфона (375px), где остается только самый важный контент без визуального мусора, и затем масштабируется до планшета и десктопа. Все отступы кратны 4 или 8 пикселям (8, 16, 24, 32, 48, 64px).</p>
+                    </div>
+                `
+            },
+            {
+                id: 'lec-6',
+                moduleId: 'mod-2',
+                number: 'Лекция 6',
+                title: 'Типографика и колористика в Web',
+                programText: 'Веб-шрифты, экранный антиалиасинг, иерархия заголовков. Психология цвета в интерфейсах, контрастность по UI-гайдлайнам, создание темных и светлых тем.',
+                tags: ['Веб-шрифты', 'Иерархия H1–H6', 'Психология цвета', 'Светлая и темная тема', 'Контрастность'],
+                materials: [
+                    { type: 'Материалы 365', title: 'Подборка сервисов по шрифтам и цвету на 365informatika', url: GOOGLE_SITES_URL, icon: 'fa-graduation-cap' },
+                    { type: 'Сервис шрифтов', title: 'Google Fonts: Каталог кириллических веб-шрифтов', url: 'https://fonts.google.com/?subset=cyrillic', icon: 'fa-font' },
+                    { type: 'Генератор палитр', title: 'Coolors: Подбор цветовых схем и проверка контраста', url: 'https://coolors.co/', icon: 'fa-palette' },
+                    { type: 'Видеоразбор', title: 'Видео: Типографика и колористика в современных веб-интерфейсах', url: 'https://www.youtube.com/results?search_query=%D1%82%D0%B8%D0%BF%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D0%BA%D0%B0+%D0%B8+%D1%86%D0%B2%D0%B5%D1%82+%D0%B2+%D0%B2%D0%B5%D0%B1+%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5', icon: 'fa-circle-play' }
+                ],
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-extrabold text-royal-700">1. Веб-типографика и экранное сглаживание</h4>
+                        <p>Для хорошей читаемости с экрана основной наборный текст должен иметь кегль <code>16px–18px</code>, межстрочный интервал <code>line-height: 1.5–1.65</code> и комфортную длину строки <code>60–75 символов</code>. Заголовки <code>H1–H3</code> образуют четкую визуальную шкалу.</p>
+                        <h4 class="text-lg font-extrabold text-royal-700 pt-2">2. Психология цвета и правило 60–30–10</h4>
+                        <p>60% площади занимает нейтральный фон (обеспечивающий воздух), 30% — фирменный цвет бренда (например, глубокий синий для доверия и надежности), 10% — акцентный цвет для целевых кнопок (CTA).</p>
+                    </div>
+                `
+            },
+            {
+                id: 'lec-7',
+                moduleId: 'mod-2',
+                number: 'Лекция 7',
+                title: 'Работа с контентом: графика, иконографика, UI-киты',
+                programText: 'Подготовка растровой и векторной графики для веба (SVG, WebP, AVIF). Создание масштабируемых систем иконок. Понятие UI-kit и дизайн-системы.',
+                tags: ['SVG & Вектор', 'WebP и AVIF', 'Иконографика', 'UI-Kit', 'Дизайн-система'],
+                materials: [
+                    { type: 'Материалы 365', title: 'Материалы по веб-графике на портале 365informatika', url: GOOGLE_SITES_URL, icon: 'fa-graduation-cap' },
+                    { type: 'Справочник', title: 'Дока: Форматы изображений для веба (SVG, WebP, AVIF)', url: 'https://doka.guide/html/img/', icon: 'fa-images' },
+                    { type: 'Библиотека иконок', title: 'FontAwesome & Lucide: Масштабируемые векторные иконки', url: 'https://fontawesome.com/icons', icon: 'fa-icons' },
+                    { type: 'Инструмент сжатия', title: 'Squoosh.app: Конвертация графики в WebP и AVIF без потери качества', url: 'https://squoosh.app/', icon: 'fa-compress' }
+                ],
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-extrabold text-royal-700">1. Современные форматы графики в Web</h4>
+                        <ul class="list-disc pl-6 space-y-1.5">
+                            <li><strong>SVG (Scalable Vector Graphics):</strong> XML-вектор для логотипов, иконок и иллюстраций. Идеально четкий на Retina-дисплеях и может перекрашиваться через CSS.</li>
+                            <li><strong>WebP и AVIF:</strong> современные растровые форматы, которые весят на 30–50% меньше старых JPEG/PNG при сохранении качества и прозрачности.</li>
+                        </ul>
+                        <h4 class="text-lg font-extrabold text-royal-700 pt-2">2. UI-Kit и Дизайн-система</h4>
+                        <p>Единая библиотека токенов (цвета, отступы, шрифты) и переиспользуемых компонентов (кнопки во всех состояниях, поля ввода, карточки), гарантирующая консистентность проекта.</p>
+                    </div>
+                `
+            },
+            {
+                id: 'lec-8',
+                moduleId: 'mod-2',
+                number: 'Лекция 8',
+                title: 'Современный инструментарий дизайнера (Figma/Аналоги)',
+                programText: 'Компоненты, варианты (Variants), Auto Layout. Проектирование кликабельных high-fidelity прототипов. Подготовка макета к передаче в разработку (Hand-off).',
+                tags: ['Figma', 'Auto Layout', 'Components & Variants', 'High-Fidelity Прототип', 'Design Hand-off'],
+                materials: [
+                    { type: 'Материалы 365', title: 'Практикумы по Figma на портале 365informatika', url: GOOGLE_SITES_URL, icon: 'fa-graduation-cap' },
+                    { type: 'Тренажер', title: 'Figma Learn: Официальное руководство по Auto Layout и Variants', url: 'https://help.figma.com/', icon: 'fa-pen-ruler' },
+                    { type: 'Альтернатива', title: 'Pixso / Penpot: Доступные аналоги для командного UI-проектирования', url: 'https://penpot.app/', icon: 'fa-layer-group' },
+                    { type: 'Видеоразбор', title: 'Видео: Auto Layout, компоненты и подготовка макета к верстке (Hand-off)', url: 'https://www.youtube.com/results?search_query=figma+auto+layout+variants+%D0%BF%D0%B5%D1%80%D0%B5%D0%B4%D0%B0%D1%87%D0%B0+%D0%BC%D0%B0%D0%BA%D0%B5%D1%82%D0%B0+%D0%B2+%D0%B2%D0%B5%D1%80%D1%81%D1%82%D0%BA%D1%83', icon: 'fa-circle-play' }
+                ],
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-extrabold text-royal-700">1. Auto Layout — мост между Figma и версткой Flexbox</h4>
+                        <p>Режим <strong>Auto Layout</strong> в Figma работает по тем же законам, что и CSS Flexbox в браузере: вы задаете направление (горизонтально/вертикально), внутренние поля <code>Padding</code> и расстояние между элементами <code>Gap</code>.</p>
+                        <h4 class="text-lg font-extrabold text-royal-700 pt-2">2. Передача макета в разработку (Hand-off)</h4>
+                        <p>Грамотный макет содержит именованные слои, страницу UI-Kit со всеми состояниями кнопок (Default, Hover, Active, Disabled), адаптивы для 1440px / 768px / 375px и настроенный экспорт SVG/WebP.</p>
+                    </div>
+                `
+            },
+
+            // ================= МОДУЛЬ 3 (Лекции 9–13) =================
+            {
+                id: 'lec-9',
+                moduleId: 'mod-3',
+                number: 'Лекция 9',
+                title: 'Анатомия веб-страницы: Язык разметки HTML5',
+                programText: 'Структура документа. Семантические теги (<header>, <article>, <section>, <footer>) и их влияние на SEO-продвижение рекламных сайтов. Работа со ссылками, изображениями и формами.',
+                tags: ['HTML5', 'Семантические теги', 'SEO-структура', 'Ссылки и Формы', 'Валидация W3C'],
+                materials: [
+                    { type: 'Материалы 365', title: 'Лекция и задания по HTML5 на 365informatika', url: GOOGLE_SITES_URL, icon: 'fa-graduation-cap' },
+                    { type: 'Тренажер', title: 'HTML Academy: Интерактивный курс по основам HTML5 и формам', url: 'https://htmlacademy.ru/courses', icon: 'fa-gamepad' },
+                    { type: 'Справочник', title: 'Дока: Полный каталог семантических тегов HTML5', url: 'https://doka.guide/html/', icon: 'fa-book' },
+                    { type: 'Валидатор', title: 'W3C Markup Validator: Проверка чистоты HTML-разметки', url: 'https://validator.w3.org/', icon: 'fa-circle-check' }
+                ],
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-extrabold text-royal-700">1. Семантический каркас HTML5 и его роль в SEO</h4>
+                        <p>Поисковые роботы Яндекс и Google оценивают качество рекламного сайта по правильной семантической структуре. Использование <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;footer&gt;</code> и единственного главного заголовка <code>&lt;h1&gt;</code> напрямую повышает позиции страницы в поиске.</p>
+                        <pre class="code-block p-4 rounded-2xl text-xs overflow-x-auto"><code>&lt;header&gt;
+  &lt;nav&gt;&lt;a href="#offer"&gt;Преимущества&lt;/a&gt;&lt;/nav&gt;
+&lt;/header&gt;
+&lt;main&gt;
+  &lt;section id="offer"&gt;
+    &lt;h1&gt;Главный рекламный оффер продукта&lt;/h1&gt;
+    &lt;article&gt;Карточка выгоды&lt;/article&gt;
+  &lt;/section&gt;
+&lt;/main&gt;</code></pre>
+                    </div>
+                `
+            },
+            {
+                id: 'lec-10',
+                moduleId: 'mod-3',
+                number: 'Лекция 10',
+                title: 'Стилизация интерфейса: Базовый CSS3',
+                programText: 'Селекторы, каскадность и специфика. Блочная модель (Box Model). Управление цветом, фонами, границами и типографикой через стили.',
+                tags: ['CSS3', 'Селекторы и Каскад', 'Box Model', 'Padding & Margin', 'box-sizing: border-box'],
+                materials: [
+                    { type: 'Материалы 365', title: 'Материалы по CSS3 на портале 365informatika', url: GOOGLE_SITES_URL, icon: 'fa-graduation-cap' },
+                    { type: 'Игровой тренажер', title: 'CSS Diner: Тренажер всех видов CSS-селекторов (32 уровня)', url: 'https://flukeout.github.io/', icon: 'fa-gamepad' },
+                    { type: 'Справочник', title: 'Дока: Блочная модель (Box Model) и специфичность селекторов', url: 'https://doka.guide/css/box-model/', icon: 'fa-cube' },
+                    { type: 'Справочник', title: 'WebReference: Справочник всех свойств CSS3 с примерами', url: 'https://webref.ru/css', icon: 'fa-layer-group' }
+                ],
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-extrabold text-royal-700">1. Блочная модель (Box Model)</h4>
+                        <p>Каждый блок состоит из контента (<code>width/height</code>), внутреннего поля (<code>padding</code> — воздух внутри карточки), границы (<code>border</code>) и внешнего отступа до соседних блоков (<code>margin</code>).</p>
+                        <pre class="code-block p-4 rounded-2xl text-xs overflow-x-auto"><code>*, *::before, *::after {
+    box-sizing: border-box; /* Padding не раздувает ширину блока */
+}
+.promo-card {
+    background-color: #ffffff;
+    padding: 28px;
+    border-radius: 20px;
+    border: 1px solid #dce4f2;
+}</code></pre>
+                    </div>
+                `
+            },
+            {
+                id: 'lec-11',
+                moduleId: 'mod-3',
+                number: 'Лекция 11',
+                title: 'Современная верстка: Flexbox и CSS Grid',
+                programText: 'Создание гибких и сложных раскладок сайтов без хаков. Выравнивание элементов по осям. Практические примеры верстки карточек товаров и навигационных панелей.',
+                tags: ['Flexbox', 'CSS Grid', 'justify-content', 'grid-template-columns', 'Верстка карточек'],
+                materials: [
+                    { type: 'Материалы 365', title: 'Шпаргалки и задания по Flexbox и Grid на 365informatika', url: GOOGLE_SITES_URL, icon: 'fa-graduation-cap' },
+                    { type: 'Игровой тренажер', title: 'Flexbox Froggy: Интерактивная игра по выравниванию Flexbox (24 уровня)', url: 'https://flexboxfroggy.com/#ru', icon: 'fa-frog' },
+                    { type: 'Игровой тренажер', title: 'Grid Garden: Интерактивная игра по сеткам CSS Grid (28 уровней)', url: 'https://cssgridgarden.com/#ru', icon: 'fa-seedling' },
+                    { type: 'Справочник', title: 'Дока: Наглядные руководства по Flexbox и CSS Grid', url: 'https://doka.guide/css/flexbox-guide/', icon: 'fa-border-all' }
+                ],
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-extrabold text-royal-700">1. Одномерный Flexbox vs Двумерный CSS Grid</h4>
+                        <p><strong>Flexbox</strong> идеален для навигационных панелей, выравнивания кнопок и контента внутри карточки. <strong>CSS Grid</strong> позволяет за 3 строки кода построить отзывчивую сетку каталога товаров или портфолио.</p>
+                        <pre class="code-block p-4 rounded-2xl text-xs overflow-x-auto"><code>/* Сетка карточек товаров без единого медиа-запроса */
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+}</code></pre>
+                    </div>
+                `
+            },
+            {
+                id: 'lec-12',
+                moduleId: 'mod-3',
+                number: 'Лекция 12',
+                title: 'Адаптивная верстка и медиа-запросы (Media Queries)',
+                programText: 'Как сделать так, чтобы рекламный лендинг идеально смотрелся на iPhone, планшете и 4K-мониторе. Плавные резиновые раскладки, брейкпоинты (breakpoints).',
+                tags: ['@media запросы', 'Breakpoints', 'iPhone / iPad / 4K', 'clamp() и vw/rem', 'Responsive Design'],
+                materials: [
+                    { type: 'Материалы 365', title: 'Раздел адаптивной верстки на портале 365informatika', url: GOOGLE_SITES_URL, icon: 'fa-graduation-cap' },
+                    { type: 'Курс', title: 'FreeCodeCamp: Responsive Web Design Certification', url: 'https://www.freecodecamp.org/learn/2022/responsive-web-design/', icon: 'fa-laptop-code' },
+                    { type: 'Справочник', title: 'Дока: Медиа-запросы @media и адаптивная типографика clamp()', url: 'https://doka.guide/css/media/', icon: 'fa-mobile-screen-button' },
+                    { type: 'Проверка', title: 'Can I Use: Проверка поддержки современных CSS-функций', url: 'https://caniuse.com/', icon: 'fa-table-list' }
+                ],
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-extrabold text-royal-700">1. Ключевые контрольные точки (Breakpoints)</h4>
+                        <p>Стандартные диапазоны адаптации рекламных страниц: <code>1440px+</code> (широкие мониторы), <code>1024px</code> (ноутбуки), <code>768px</code> (планшеты iPad), <code>375px–430px</code> (смартфоны iPhone / Android).</p>
+                        <pre class="code-block p-4 rounded-2xl text-xs overflow-x-auto"><code>/* Плавный размер заголовка от 28px на смартфоне до 52px на десктопе */
+.hero-title {
+    font-size: clamp(1.75rem, 4vw, 3.25rem);
+}
+@media (max-width: 768px) {
+    .promo-columns { grid-template-columns: 1fr; }
+}</code></pre>
+                    </div>
+                `
+            },
+            {
+                id: 'lec-13',
+                moduleId: 'mod-3',
+                number: 'Лекция 13',
+                title: 'Введение в интерактивность: JavaScript и анимации',
+                programText: 'Базовые понятия JS (события, клики, ховеры). Использование готовых библиотек для создания слайдеров, табов, модальных окон и параллакс-эффектов (например, Swiper.js, GSAP).',
+                tags: ['JavaScript', 'DOM События', 'Swiper.js', 'GSAP Анимации', 'Модальные окна и Табы'],
+                materials: [
+                    { type: 'Материалы 365', title: 'Материалы по JavaScript и интерактиву на 365informatika', url: GOOGLE_SITES_URL, icon: 'fa-graduation-cap' },
+                    { type: 'Учебник', title: 'Современный учебник JavaScript (Learn.javascript.ru): Введение в события', url: 'https://learn.javascript.ru/introduction-browser-events', icon: 'fa-bolt' },
+                    { type: 'Библиотека', title: 'Swiper.js: Самый популярный мобильный touch-слайдер', url: 'https://swiperjs.com/demos', icon: 'fa-sliders' },
+                    { type: 'Библиотека анимаций', title: 'GSAP (GreenSock): Профессиональная веб-анимация и ScrollTrigger', url: 'https://gsap.com/', icon: 'fa-wand-sparkles' }
+                ],
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-extrabold text-royal-700">1. Управление интерфейсом через события JavaScript</h4>
+                        <p>Для дизайнера и верстальщика JavaScript — это инструмент оживления макета: открытие поп-апов по клику на кнопку, переключение табов с тарифами, аккордеоны FAQ и плавные слайдеры.</p>
+                        <pre class="code-block p-4 rounded-2xl text-xs overflow-x-auto"><code>// Открытие модального окна заявки по клику
+const openBtn = document.querySelector('#cta-button');
+const modal = document.querySelector('#lead-modal');
+
+openBtn.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+});</code></pre>
+                    </div>
+                `
+            },
+
+            // ================= МОДУЛЬ 4 (Лекции 14–16) =================
+            {
+                id: 'lec-14',
+                moduleId: 'mod-4',
+                number: 'Лекция 14',
+                title: 'Дизайнер как самостоятельный боец: No-Code и CMS',
+                programText: 'Обзор платформ для быстрой сборки сайтов и промо-страниц (Tilda, Webflow, Framer). Плюсы и минусы закрытых экосистем для рекламных кампаний.',
+                tags: ['No-Code', 'Tilda Zero Block', 'Webflow', 'Framer', 'Быстрый запуск промо'],
+                materials: [
+                    { type: 'Материалы 365', title: 'Обзор конструкторов и CMS на портале 365informatika', url: GOOGLE_SITES_URL, icon: 'fa-graduation-cap' },
+                    { type: 'База знаний', title: 'Tilda Education: Справочник по Zero Block и веб-дизайну', url: 'https://tilda.education/', icon: 'fa-cubes' },
+                    { type: 'Академия', title: 'Webflow University: Визуальная верстка по принципам Box Model', url: 'https://university.webflow.com/', icon: 'fa-graduation-cap' },
+                    { type: 'Платформа', title: 'Framer Academy: Интерактивные промо-сайты из макетов Figma', url: 'https://www.framer.com/academy/', icon: 'fa-bolt' }
+                ],
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-extrabold text-royal-700">1. Когда бизнесу нужен No-Code, а когда кастомный код?</h4>
+                        <p>В рекламных агентствах скорость часто решает всё: если промо-лендинг под сезонную акцию нужно запустить за 3 дня, <strong>Tilda (Zero Block)</strong>, <strong>Framer</strong> или <strong>Webflow</strong> позволяют дизайнеру собрать и опубликовать сайт самостоятельно без участия программистов.</p>
+                        <h4 class="text-lg font-extrabold text-royal-700 pt-2">2. Почему знание HTML/CSS делает вас лучшим No-Code специалистом?</h4>
+                        <p>Webflow и Framer напрямую используют понятия <code>Flexbox</code>, <code>Grid</code>, <code>Padding</code>, <code>Margin</code> и <code>Z-index</code>, а в Tilda знание CSS/JS позволяет кастомизировать блоки под уникальный арт-дирекшн.</p>
+                    </div>
+                `
+            },
+            {
+                id: 'lec-15',
+                moduleId: 'mod-4',
+                number: 'Лекция 15',
+                title: 'Оптимизация, Веб-аналитика и SEO',
+                programText: 'Техническая подготовка сайта к запуску. Оптимизация скорости загрузки (Google PageSpeed). Подключение пикселей соцсетей, Яндекс.Метрики и Google Analytics. Основы тегирования событий (клики на кнопки, отправка форм).',
+                tags: ['Google PageSpeed', 'Яндекс.Метрика', 'Google Analytics', 'Тегирование целей', 'Техническое SEO'],
+                materials: [
+                    { type: 'Материалы 365', title: 'Чек-листы оптимизации и публикации на 365informatika', url: GOOGLE_SITES_URL, icon: 'fa-graduation-cap' },
+                    { type: 'Инструмент аудита', title: 'Google PageSpeed Insights: Проверка скорости и Core Web Vitals', url: 'https://pagespeed.web.dev/', icon: 'fa-gauge-high' },
+                    { type: 'Справка аналитики', title: 'Яндекс.Метрика: Настройка счетчика, Вебвизора и целей на отправку форм', url: 'https://yandex.ru/support/metrica/', icon: 'fa-chart-pie' },
+                    { type: 'Справочник', title: 'Дока: Мета-теги Open Graph и SEO-подготовка страницы', url: 'https://doka.guide/html/meta/', icon: 'fa-magnifying-glass-chart' }
+                ],
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-extrabold text-royal-700">1. Скорость загрузки и рекламный бюджет</h4>
+                        <p>Каждая лишняя секунда загрузки лендинга снижает конверсию рекламного трафика на 10–20%. Оптимизируйте графику в WebP, используйте ленивую загрузку <code>loading="lazy"</code> и проверяйте показатели <strong>Core Web Vitals (LCP, CLS, INP)</strong> в Google PageSpeed.</p>
+                        <h4 class="text-lg font-extrabold text-royal-700 pt-2">2. Веб-аналитика и тегирование событий</h4>
+                        <p>Перед запуском трафика обязательно настраиваются: разметка <strong>Open Graph</strong> (красивое превью ссылки в Telegram/VK), счетчик <strong>Яндекс.Метрики</strong> (с картой кликов и Вебвизором) и цели на события (клик по CTA-кнопке, успешная отправка лид-формы).</p>
+                    </div>
+                `
+            },
+            {
+                id: 'lec-16',
+                moduleId: 'mod-4',
+                number: 'Лекция 16',
+                title: 'Защита проектов и тренды',
+                programText: 'Презентация готового цифрового продукта клиенту или арт-директору. Обзор будущего индустрии: AI в дизайне, Web3, 3D в браузере (Three.js), генеративный дизайн.',
+                tags: ['Защита проекта', 'Питчинг арт-директору', 'AI в дизайне', 'Three.js и WebGL 3D', 'Генеративный дизайн'],
+                materials: [
+                    { type: 'Материалы 365', title: 'Итоговые требования и портфолио на 365informatika', url: GOOGLE_SITES_URL, icon: 'fa-graduation-cap' },
+                    { type: '3D в браузере', title: 'Three.js & Spline: Интерактивная 3D-графика прямо в веб-странице', url: 'https://threejs.org/', icon: 'fa-cube' },
+                    { type: 'Галерея трендов', title: 'Awwwards: Лучшие мировые промо-сайты, WebGL и AI-проекты', url: 'https://www.awwwards.com/', icon: 'fa-trophy' },
+                    { type: 'Публикация', title: 'GitHub Pages: Бесплатный хостинг для демонстрации дипломного проекта', url: 'https://pages.github.com/', icon: 'fa-cloud-arrow-up' }
+                ],
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-extrabold text-royal-700">1. Как защищать дизайн-проект перед клиентом и арт-директором</h4>
+                        <p>Успешная презентация строится не вокруг вкусовщины («мне нравится этот синий цвет»), а вокруг <strong>решения задачи бизнеса</strong>: какую аудиторию мы исследовали (Персоны/CJM), как построили воронку на странице, почему выбрали такую типографику и как обеспечили высокую скорость загрузки.</p>
+                        <h4 class="text-lg font-extrabold text-royal-700 pt-2">2. Будущее веб-индустрии</h4>
+                        <ul class="list-disc pl-6 space-y-1.5">
+                            <li><strong>AI-инструменты:</strong> генерация ассетов, быстрый прототипинг и персонализация контента под пользователя.</li>
+                            <li><strong>3D в браузере (Three.js / Spline / WebGL):</strong> интерактивные 3D-модели товаров, которые можно вращать прямо на промо-лендинге.</li>
+                            <li><strong>Генеративный дизайн и Web3:</strong> алгоритмическая айдентика и иммерсивные цифровые пространства.</li>
+                        </ul>
+                    </div>
+                `
+            }
+        ];
+
+        // ДОПОЛНИТЕЛЬНЫЕ КАТАЛОГИ С САЙТА 365INFORMATIKA (ДЛЯ СТРАНИЦЫ «ТРЕНАЖЕРЫ И СПРАВОЧНИКИ»)
+        const coursesCatalog = [
+            { title: 'HTML Academy — Интерактивные курсы', badge: 'Хит обучения', typeLabel: 'Платформа', desc: 'Пошаговые задания в браузере по HTML5, CSS3 и JavaScript с автоматической проверкой.', url: 'https://htmlacademy.ru/courses' },
+            { title: 'Flexbox Froggy (Лягушонок Flexbox)', badge: '24 уровня', typeLabel: 'Игра-тренажер', desc: 'Изучение выравнивания элементов во Flexbox к Лекции 11 в игровой форме.', url: 'https://flexboxfroggy.com/#ru' },
+            { title: 'Grid Garden (Морковный сад CSS Grid)', badge: '28 уровней', typeLabel: 'Игра-тренажер', desc: 'Практика построения двумерных сеток CSS Grid к Лекции 5 и Лекции 11.', url: 'https://cssgridgarden.com/#ru' },
+            { title: 'CSS Diner — Тренажер селекторов', badge: '32 задачи', typeLabel: 'Игра-тренажер', desc: 'Отработка простых и комбинированных CSS-селекторов к Лекции 10.', url: 'https://flukeout.github.io/' },
+            { title: 'Stepik: Веб-разработка и дизайн', badge: 'Бесплатно', typeLabel: 'Курс', desc: 'Комплексные курсы с тестами и практическими задачами по верстке.', url: 'https://stepik.org/catalog/search?q=web%20%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0' },
+            { title: 'FreeCodeCamp: Responsive Design', badge: 'Проекты', typeLabel: 'Международный курс', desc: 'Интерактивный практикум по созданию адаптивных промо-страниц и форм.', url: 'https://www.freecodecamp.org/learn/2022/responsive-web-design/' },
+            { title: 'Tilda Education & Учебник', badge: 'No-Code', typeLabel: 'Модуль 4', desc: 'Мультимедийный учебник по созданию лендингов, композиции и работе в Zero Block.', url: 'https://tilda.education/' },
+            { title: 'Figma Learn — Тренажер Auto Layout', badge: 'UI/UX', typeLabel: 'Модуль 2', desc: 'Интерактивные уроки по компонентам, вариантам и адаптивным фреймам в Figma.', url: 'https://help.figma.com/' }
+        ];
+
+        const docsCatalog = [
+            { title: 'Дока (Doka.guide)', category: 'Документация', icon: 'fa-book-bookmark', desc: 'Современная русскоязычная энциклопедия по дизайну, HTML, CSS, JS и доступности (a11y).', url: 'https://doka.guide/' },
+            { title: 'MDN Web Docs (Mozilla)', category: 'Веб-стандарты', icon: 'fa-globe', desc: 'Официальная мировая база знаний по всем веб-технологиям, HTML5, CSS3 и DOM.', url: 'https://developer.mozilla.org/ru/' },
+            { title: 'Современный учебник JavaScript', category: 'Интерактивность', icon: 'fa-bolt', desc: 'Полное руководство по языку JavaScript, событиям браузера и анимациям.', url: 'https://learn.javascript.ru/' },
+            { title: 'W3C Markup Validator', category: 'Контроль качества', icon: 'fa-circle-check', desc: 'Проверка семантической HTML-разметки рекламных сайтов на отсутствие ошибок.', url: 'https://validator.w3.org/' },
+            { title: 'Google PageSpeed Insights', category: 'Оптимизация (Лекция 15)', icon: 'fa-gauge-high', desc: 'Анализ скорости загрузки страницы на мобильных и десктопных устройствах.', url: 'https://pagespeed.web.dev/' },
+            { title: 'Google Fonts & Coolors', category: 'Типографика и Цвет', icon: 'fa-palette', desc: 'Библиотека веб-шрифтов с кириллицей и генератор гармоничных цветовых палитр.', url: 'https://fonts.google.com/?subset=cyrillic' }
+        ];
+
+        const videosCatalog = [
+            { number: 'К Модулю 1', duration: '40:15', title: 'UX-аналитика: построение CJM, персон и вайрфреймов', desc: 'Практический разбор предпроектного исследования и проектирования прототипа рекламного сайта.', url: 'https://www.youtube.com/results?search_query=ux+%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0+cjm+%D0%B2%D0%B0%D0%B9%D1%80%D1%84%D1%80%D0%B5%D0%B9%D0%BC%D1%8B' },
+            { number: 'К Модулю 2', duration: '48:30', title: 'UI-дизайн в Figma: сетки, типографика, UI-kit и Auto Layout', desc: 'Пошаговая сборка дизайн-системы, вариантов компонентов и подготовка макета к Hand-off.', url: 'https://www.youtube.com/results?search_query=figma+ui+kit+auto+layout+%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5+%D1%81%D0%B5%D1%82%D0%BA%D0%B8' },
+            { number: 'К Модулю 3', duration: '55:20', title: 'Адаптивная верстка лендинга: HTML5, Flexbox, Grid и GSAP', desc: 'Превращение дизайн-макета в живой адаптивный сайт с плавными микроанимациями.', url: 'https://www.youtube.com/results?search_query=%D0%B2%D0%B5%D1%80%D1%81%D1%82%D0%BA%D0%B0+%D0%BB%D0%B5%D0%BD%D0%B4%D0%B8%D0%BD%D0%B3%D0%B0+html+css+flexbox+grid' }
+        ];
+
+        const sandboxPresets = {
+            uiux: `<!-- Пресет 1: Промо-карточка (Лекция 5 и 6: Воздух, Типографика и Иерархия) -->
+<style>
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #f0f4fa;
+    padding: 24px;
+    margin: 0;
+    color: #0f172a;
+  }
+  .promo-card {
+    background: #ffffff;
+    border: 1px solid #dce4f2;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 12px 28px rgba(1, 67, 177, 0.08);
+    max-width: 480px;
+  }
+  .tag {
+    display: inline-block;
+    background: #fdf8e8;
+    color: #967415;
+    border: 1px solid #e5b842;
+    padding: 4px 12px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  h3 {
+    margin: 0 0 10px 0;
+    color: #0143b1;
+    font-size: 21px;
+    line-height: 1.3;
+  }
+  p {
+    margin: 0 0 22px 0;
+    color: #475569;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #0143b1, #2845ad);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 14px;
+  }
+</style>
+
+<article class="promo-card">
+  <span class="tag">Направление «Реклама и дизайн»</span>
+  <h3>Продуктовый подход в веб-дизайне</h3>
+  <p>Грамотная работа с воздухом (padding 28px), контрастной типографикой и четким призывом к действию (CTA) повышает конверсию рекламного лендинга.</p>
+  <a href="#" class="cta-btn" onclick="return false;">Перейти к офферу →</a>
+</article>`,
+            flex: `<!-- Пресет 2: Навигационная панель и карточки на Flexbox (Лекция 11) -->
+<style>
+  body { font-family: system-ui, sans-serif; background: #f0f4fa; padding: 20px; margin: 0; }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0143b1;
+    color: white;
+    padding: 16px 24px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+  }
+  .row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .card {
+    flex: 1 1 140px;
+    background: white;
+    border: 1px solid #dce4f2;
+    padding: 20px;
+    border-radius: 14px;
+    font-size: 14px;
+  }
+</style>
+<header class="header">
+  <strong>365 Информатика</strong>
+  <span>Модуль 3 • Flexbox</span>
+</header>
+<div class="row">
+  <div class="card"><strong>Карточка 1</strong><br>Гибкая ширина flex: 1</div>
+  <div class="card"><strong>Карточка 2</strong><br>Отступ gap: 16px</div>
+  <div class="card"><strong>Карточка 3</strong><br>Адаптивный перенос</div>
+</div>`,
+            grid: `<!-- Пресет 3: Двумерная сетка CSS Grid (Лекция 5 и Лекция 11) -->
+<style>
+  body { font-family: system-ui, sans-serif; background: #f0f4fa; padding: 20px; margin: 0; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 18px;
+  }
+  .item {
+    background: #ffffff;
+    border-top: 4px solid #0143b1;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(1, 67, 177, 0.06);
+  }
+  h4 { margin: 0 0 6px 0; color: #0143b1; }
+  p { margin: 0; font-size: 13px; color: #64748b; }
+</style>
+<div class="grid">
+  <div class="item"><h4>Модуль 1</h4><p>UX и Аналитика</p></div>
+  <div class="item"><h4>Модуль 2</h4><p>UI и Концепция</p></div>
+  <div class="item"><h4>Модуль 3</h4><p>Frontend-верстка</p></div>
+  <div class="item"><h4>Модуль 4</h4><p>No-Code и SEO</p></div>
+</div>`
+        };
+
+        // =========================================================
+        // СОСТОЯНИЕ ПОРТАЛА
+        // =========================================================
+        let state = {
+            currentPage: 'overview', // overview | mod-1 | mod-2 | mod-3 | mod-4 | resources
+            lectureStatusFilter: 'all',
+            activeModalLectureId: null,
+            completedLectures: JSON.parse(localStorage.getItem('365inf_v2_completed') || '[]'),
+            customMaterials: JSON.parse(localStorage.getItem('365inf_v2_custom_materials') || '{}')
+        };
+
+        function getMaterialsForLecture(lec) {
+            const extra = state.customMaterials[lec.id] || [];
+            return [...lec.materials, ...extra];
+        }
+
+        // =========================================================
+        // НАВИГАЦИЯ ПО ОТДЕЛЬНЫМ СТРАНИЦАМ (SPA)
+        // =========================================================
+        function navigateToPage(pageId) {
+            state.currentPage = pageId;
+            clearSearch(false);
+
+            // Подсветка активной вкладки в шапке
+            document.querySelectorAll('.page-tab').forEach(btn => {
+                const isActive = btn.getAttribute('data-page') === pageId;
+                if (isActive) {
+                    btn.className = 'page-tab px-4 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition flex items-center gap-2 bg-royal-600 text-white shadow-sm';
+                } else {
+                    btn.className = 'page-tab px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition flex items-center gap-2 text-slate-700 hover:bg-royal-50 hover:text-royal-600';
+                }
+            });
+
+            // Скрываем все страницы
+            document.querySelectorAll('.spa-page').forEach(el => el.classList.add('hidden'));
+
+            if (pageId === 'overview') {
+                document.getElementById('page-overview').classList.remove('hidden');
+                renderOverviewModules();
+            } else if (pageId === 'resources') {
+                document.getElementById('page-resources').classList.remove('hidden');
+                renderResourcesPage();
+            } else if (pageId.startsWith('mod-')) {
+                document.getElementById('page-module').classList.remove('hidden');
+                renderModulePage(pageId);
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // =========================================================
+        // РЕНДЕР ГЛАВНОЙ СТРАНИЦЫ (КАРТОЧКИ 4 МОДУЛЕЙ)
+        // =========================================================
+        function renderOverviewModules() {
+            const container = document.getElementById('modulesOverviewGrid');
+            container.innerHTML = courseModules.map((mod, idx) => {
+                const modLectures = lecturesData.filter(l => l.moduleId === mod.id);
+                const doneCount = modLectures.filter(l => state.completedLectures.includes(l.id)).length;
+                const pct = Math.round((doneCount / modLectures.length) * 100);
+
+                return `
+                    <article class="bg-white rounded-3xl p-7 sm:p-8 border border-royal-200 shadow-card hover:shadow-card-hover card-transition flex flex-col justify-between gap-6">
+                        <div class="space-y-5">
+                            <div class="flex items-center justify-between gap-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-2xl royal-gradient text-white flex items-center justify-center text-lg font-extrabold shadow-sm">
+                                        <i class="fa-solid ${mod.icon}"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs font-extrabold uppercase tracking-wider text-royal-600">${mod.num}</span>
+                                        <div class="text-xs font-semibold text-slate-500">${mod.lecturesCount}</div>
+                                    </div>
+                                </div>
+                                <span class="px-3 py-1 rounded-full bg-royal-50 text-royal-700 font-bold text-xs border border-royal-100">
+                                    Изучено: ${doneCount}/${modLectures.length} (${pct}%)
+                                </span>
+                            </div>
+
+                            <h4 class="text-xl sm:text-2xl font-extrabold text-slate-900 leading-snug">
+                                ${mod.title}
+                            </h4>
+
+                            <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+                                ${mod.desc}
+                            </p>
+
+                            <!-- Список лекций внутри модуля -->
+                            <div class="bg-royal-50/70 rounded-2xl p-4 border border-royal-100 space-y-2">
+                                <div class="text-xs font-bold uppercase tracking-wider text-royal-700 mb-1">Лекции в этом модуле:</div>
+                                ${modLectures.map(l => `
+                                    <div class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700">
+                                        <i class="fa-solid ${state.completedLectures.includes(l.id) ? 'fa-circle-check text-emerald-600' : 'fa-circle-dot text-royal-600'} mt-1 shrink-0"></i>
+                                        <span><strong class="text-slate-900">${l.number}:</strong> ${l.title}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="pt-4 border-t border-royal-100 flex items-center justify-between gap-4">
+                            <div class="flex flex-wrap gap-1.5">
+                                ${mod.highlights.slice(0, 2).map(h => `
+                                    <span class="px-2.5 py-1 rounded-lg bg-royal-50 text-royal-700 text-xs font-semibold">${h}</span>
+                                `).join('')}
+                            </div>
+                            <button onclick="navigateToPage('${mod.id}')" class="px-5 py-3 rounded-xl bg-royal-600 hover:bg-royal-700 text-white font-bold text-xs sm:text-sm shadow-sm transition flex items-center gap-2 shrink-0">
+                                <span>Открыть страницу модуля</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        // =========================================================
+        // РЕНДЕР ОТДЕЛЬНОЙ СТРАНИЦЫ ВЫБРАННОГО МОДУЛЯ
+        // =========================================================
+        function renderModulePage(moduleId) {
+            const modIndex = courseModules.findIndex(m => m.id === moduleId);
+            const mod = courseModules[modIndex];
+            if (!mod) return;
+
+            document.getElementById('modulePageBadge').textContent = `${mod.num} • ${mod.lecturesCount}`;
+            document.getElementById('modulePageTitle').textContent = `${mod.num}: ${mod.title}`;
+            document.getElementById('modulePageDesc').textContent = mod.desc;
+
+            // Кнопки быстрого переключения модулей сверху
+            const pagerTop = document.getElementById('modulePagerTop');
+            pagerTop.innerHTML = courseModules.map(m => `
+                <button onclick="navigateToPage('${m.id}')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition ${m.id === moduleId ? 'bg-white text-royal-700 shadow-sm' : 'bg-white/10 hover:bg-white/20 text-white border border-white/15'}">
+                    ${m.num}
+                </button>
+            `).join('');
+
+            // Фильтрация лекций этого модуля
+            const modLectures = lecturesData.filter(l => {
+                if (l.moduleId !== moduleId) return false;
+                const isDone = state.completedLectures.includes(l.id);
+                if (state.lectureStatusFilter === 'done' && !isDone) return false;
+                if (state.lectureStatusFilter === 'todo' && isDone) return false;
+                return true;
+            });
+
+            const container = document.getElementById('moduleLecturesContainer');
+            if (modLectures.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white rounded-3xl p-10 text-center border border-royal-200 space-y-3">
+                        <h4 class="text-lg font-extrabold text-slate-800">В этом модуле нет лекций с выбранным статусом</h4>
+                        <button onclick="setLectureStatusFilter('all')" class="px-4 py-2 rounded-xl bg-royal-600 text-white text-xs font-bold">Показать все лекции модуля</button>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = modLectures.map(lec => buildLectureCardHtml(lec, mod)).join('');
+            }
+
+            // Нижняя навигация между соседними модулями
+            const prevMod = courseModules[modIndex - 1];
+            const nextMod = courseModules[modIndex + 1];
+            document.getElementById('moduleBottomNav').innerHTML = `
+                <div>
+                    ${prevMod ? `
+                        <button onclick="navigateToPage('${prevMod.id}')" class="px-5 py-3 rounded-2xl bg-white hover:bg-royal-50 text-royal-700 border border-royal-200 font-bold text-sm shadow-sm transition flex items-center gap-2.5">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            <span>Предыдущий: ${prevMod.num} (${prevMod.shortTitle})</span>
+                        </button>
+                    ` : `
+                        <button onclick="navigateToPage('overview')" class="px-5 py-3 rounded-2xl bg-white hover:bg-royal-50 text-royal-700 border border-royal-200 font-bold text-sm shadow-sm transition flex items-center gap-2.5">
+                            <i class="fa-solid fa-table-cells-large"></i>
+                            <span>На главную к обзору курса</span>
+                        </button>
+                    `}
+                </div>
+                <div>
+                    ${nextMod ? `
+                        <button onclick="navigateToPage('${nextMod.id}')" class="px-6 py-3 rounded-2xl bg-royal-600 hover:bg-royal-700 text-white font-bold text-sm shadow-md transition flex items-center gap-2.5">
+                            <span>Следующий: ${nextMod.num} (${nextMod.shortTitle})</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    ` : `
+                        <button onclick="navigateToPage('resources')" class="px-6 py-3 rounded-2xl bg-royal-600 hover:bg-royal-700 text-white font-bold text-sm shadow-md transition flex items-center gap-2.5">
+                            <span>Перейти к Тренажерам и Песочнице</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    `}
+                </div>
+            `;
+        }
+
+        // КАРТОЧКА ОТДЕЛЬНОЙ ЛЕКЦИИ С БЛОКОМ МАТЕРИАЛОВ С САЙТА 365INFORMATIKA
+        function buildLectureCardHtml(lec, modObj) {
+            const isDone = state.completedLectures.includes(lec.id);
+            const materials = getMaterialsForLecture(lec);
+            const modTitle = modObj ? modObj.num : '';
+
+            return `
+                <article class="bg-white rounded-3xl p-7 sm:p-8 border ${isDone ? 'border-emerald-300' : 'border-royal-200'} shadow-card hover:shadow-card-hover card-transition space-y-6">
+                    <!-- Шапка карточки лекции -->
+                    <div class="flex flex-wrap items-start justify-between gap-4 border-b border-royal-100 pb-5">
+                        <div class="space-y-2 max-w-3xl">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="px-3.5 py-1 rounded-xl bg-royal-600 text-white font-extrabold text-xs uppercase tracking-wider">
+                                    ${lec.number}
+                                </span>
+                                <span class="px-3 py-1 rounded-xl bg-royal-50 text-royal-700 font-bold text-xs border border-royal-100">
+                                    ${modTitle} • Направление «Реклама и дизайн»
+                                </span>
+                                ${isDone ? `<span class="px-3 py-1 rounded-xl bg-emerald-100 text-emerald-800 font-bold text-xs"><i class="fa-solid fa-check mr-1"></i>Изучено</span>` : ''}
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 leading-snug pt-1">
+                                ${lec.title}
+                            </h3>
+                        </div>
+
+                        <button 
+                            onclick="toggleLectureRead('${lec.id}')" 
+                            class="px-4 py-2.5 rounded-xl border ${isDone ? 'bg-emerald-600 border-emerald-600 text-white' : 'bg-royal-50 hover:bg-royal-100 border-royal-200 text-royal-700'} font-bold text-xs transition flex items-center gap-2 shrink-0"
+                        >
+                            <i class="fa-solid ${isDone ? 'fa-circle-check' : 'fa-check'}"></i>
+                            <span>${isDone ? 'Изучено' : 'Отметить изученным'}</span>
+                        </button>
+                    </div>
+
+                    <!-- Программа лекции по учебному плану -->
+                    <div class="space-y-3">
+                        <div class="text-xs font-bold uppercase tracking-wider text-royal-600">Содержание по учебному плану:</div>
+                        <p class="text-base text-slate-700 leading-relaxed bg-royal-50/50 p-4 rounded-2xl border border-royal-100">
+                            ${lec.programText}
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-1">
+                            ${lec.tags.map(t => `<span class="px-3 py-1 rounded-lg bg-royal-50 text-royal-800 text-xs font-semibold">#${t}</span>`).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Блок прикрепленных материалов с сайта 365informatika -->
+                    <div class="space-y-3 pt-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-royal-700 flex items-center gap-2">
+                                <i class="fa-solid fa-paperclip text-gold-500"></i>
+                                <span>Учебно-методические материалы и ресурсы к лекции (365informatika):</span>
+                            </span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+                            ${materials.map(mat => `
+                                <a href="${mat.url}" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-2xl bg-royal-50/60 hover:bg-royal-600 text-slate-800 hover:text-white border border-royal-200 transition group flex flex-col justify-between gap-2">
+                                    <div class="flex items-center justify-between gap-2">
+                                        <span class="text-[11px] font-bold uppercase tracking-wider text-royal-600 group-hover:text-gold-400">${mat.type}</span>
+                                        <i class="fa-solid ${mat.icon || 'fa-arrow-up-right-from-square'} text-royal-600 group-hover:text-white text-xs"></i>
+                                    </div>
+                                    <div class="text-xs sm:text-sm font-bold leading-snug">${mat.title}</div>
+                                </a>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Нижняя панель действий карточки -->
+                    <div class="pt-4 border-t border-royal-100 flex flex-wrap items-center justify-between gap-3">
+                        <button onclick="openLectureModal('${lec.id}')" class="px-6 py-3 rounded-xl bg-royal-600 hover:bg-royal-700 text-white font-bold text-xs sm:text-sm shadow-sm transition flex items-center gap-2">
+                            <i class="fa-solid fa-book-open-reader text-gold-400"></i>
+                            <span>Читать подробный конспект лекции</span>
+                        </button>
+                        <a href="${GOOGLE_SITES_URL}" target="_blank" rel="noopener noreferrer" class="px-4 py-3 rounded-xl bg-royal-50 hover:bg-royal-100 text-royal-700 border border-royal-200 font-semibold text-xs sm:text-sm transition flex items-center gap-2">
+                            <span>Раздел на 365informatika</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+            `;
+        }
+
+        function setLectureStatusFilter(status) {
+            state.lectureStatusFilter = status;
+            ['all', 'todo', 'done'].forEach(st => {
+                const btn = document.getElementById('modFilter' + st.charAt(0).toUpperCase() + st.slice(1));
+                if (btn) {
+                    btn.className = st === status
+                        ? 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-royal-600 text-white transition'
+                        : 'px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-royal-600 transition';
+                }
+            });
+            if (state.currentPage.startsWith('mod-')) {
+                renderModulePage(state.currentPage);
+            }
+        }
+
+        // =========================================================
+        // РЕНДЕР СТРАНИЦЫ ТРЕНАЖЕРОВ, СПРАВОЧНИКОВ И ПЕСОЧНИЦЫ
+        // =========================================================
+        function renderResourcesPage() {
+            document.getElementById('coursesGrid').innerHTML = coursesCatalog.map(crs => `
+                <article class="bg-white rounded-3xl p-6 border border-royal-200 shadow-card hover:shadow-card-hover card-transition flex flex-col justify-between gap-5">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="gold-badge px-2.5 py-0.5 rounded-lg text-[11px] font-bold uppercase">${crs.badge}</span>
+                            <span class="text-xs font-semibold text-royal-600 bg-royal-50 px-2.5 py-0.5 rounded-lg">${crs.typeLabel}</span>
+                        </div>
+                        <h4 class="text-base sm:text-lg font-extrabold text-slate-900 leading-snug">${crs.title}</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">${crs.desc}</p>
+                    </div>
+                    <a href="${crs.url}" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 rounded-xl bg-royal-50 hover:bg-royal-600 text-royal-700 hover:text-white border border-royal-200 font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2">
+                        <span>Открыть тренажер</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                    </a>
+                </article>
+            `).join('');
+
+            document.getElementById('docsGrid').innerHTML = docsCatalog.map(doc => `
+                <article class="bg-white rounded-3xl p-6 border border-royal-200 shadow-card hover:shadow-card-hover card-transition flex flex-col justify-between gap-5">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="w-11 h-11 rounded-2xl bg-royal-50 border border-royal-200 text-royal-600 flex items-center justify-center text-lg">
+                                <i class="fa-solid ${doc.icon}"></i>
+                            </div>
+                            <span class="px-3 py-1 rounded-xl bg-royal-50 text-royal-700 font-bold text-xs">${doc.category}</span>
+                        </div>
+                        <h4 class="text-lg font-extrabold text-slate-900">${doc.title}</h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">${doc.desc}</p>
+                    </div>
+                    <a href="${doc.url}" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm font-extrabold text-royal-600 hover:text-royal-800 flex items-center gap-1.5 pt-2 border-t border-royal-100">
+                        <span>Перейти к ресурсу</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </article>
+            `).join('');
+
+            document.getElementById('videosGrid').innerHTML = videosCatalog.map(vid => `
+                <article class="bg-white rounded-3xl overflow-hidden border border-royal-200 shadow-card hover:shadow-card-hover card-transition flex flex-col justify-between">
+                    <div>
+                        <div class="royal-gradient p-6 text-white flex flex-col justify-between min-h-[130px]">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-1 rounded-lg bg-white/15 text-xs font-bold uppercase">${vid.number}</span>
+                                <span class="px-2.5 py-1 rounded-lg bg-slate-900/60 text-gold-400 font-mono text-xs font-bold">${vid.duration}</span>
+                            </div>
+                            <div class="mt-4 flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-gold-500 text-royal-900 flex items-center justify-center shadow-md">
+                                    <i class="fa-solid fa-play"></i>
+                                </div>
+                                <span class="text-xs text-royal-100 font-medium">Видеопрактикум по программе курса</span>
+                            </div>
+                        </div>
+                        <div class="p-6 space-y-2.5">
+                            <h4 class="text-lg font-extrabold text-slate-900 leading-snug">${vid.title}</h4>
+                            <p class="text-sm text-slate-600 leading-relaxed">${vid.desc}</p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <a href="${vid.url}" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 rounded-xl bg-royal-600 hover:bg-royal-700 text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-youtube text-gold-400"></i>
+                            <span>Смотреть видеоподборку</span>
+                        </a>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // =========================================================
+        // ГЛОБАЛЬНЫЙ ПОИСК ПО ВСЕМ 16 ЛЕКЦИЯМ
+        // =========================================================
+        function handleSearch(query) {
+            const q = query.trim().toLowerCase();
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const searchSection = document.getElementById('searchResultsSection');
+            const resultsGrid = document.getElementById('searchResultsGrid');
+
+            if (!q) {
+                clearBtn.classList.add('hidden');
+                searchSection.classList.add('hidden');
+                return;
+            }
+
+            clearBtn.classList.remove('hidden');
+            searchSection.classList.remove('hidden');
+
+            const matched = lecturesData.filter(lec => {
+                const text = [lec.number, lec.title, lec.programText, ...lec.tags].join(' ').toLowerCase();
+                return text.includes(q);
+            });
+
+            document.getElementById('searchStatusTitle').textContent = `Найдено лекций по запросу «${query}»: ${matched.length}`;
+
+            if (matched.length === 0) {
+                resultsGrid.innerHTML = `
+                    <div class="col-span-full bg-white rounded-3xl p-8 text-center border border-royal-200">
+                        <p class="text-slate-600 font-semibold">По вашему запросу ничего не найдено. Попробуйте ввести: CJM, Figma, HTML5, Grid, Tilda, SEO.</p>
+                    </div>
+                `;
+            } else {
+                resultsGrid.innerHTML = matched.map(lec => {
+                    const mod = courseModules.find(m => m.id === lec.moduleId);
+                    return buildLectureCardHtml(lec, mod);
+                }).join('');
+            }
+        }
+
+        function clearSearch(focusInput = true) {
+            const input = document.getElementById('globalSearch');
+            if (input) input.value = '';
+            document.getElementById('clearSearchBtn').classList.add('hidden');
+            document.getElementById('searchResultsSection').classList.add('hidden');
+        }
+
+        // =========================================================
+        // ПРОГРЕСС И МОДАЛЬНОЕ ОКНО КОНСПЕКТА ЛЕКЦИИ
+        // =========================================================
+        function toggleLectureRead(lectureId) {
+            const idx = state.completedLectures.indexOf(lectureId);
+            if (idx > -1) {
+                state.completedLectures.splice(idx, 1);
+                showToast('Отметка о прохождении снята');
+            } else {
+                state.completedLectures.push(lectureId);
+                showToast('Лекция отмечена как изученная!');
+            }
+            localStorage.setItem('365inf_v2_completed', JSON.stringify(state.completedLectures));
+            updateProgressUI();
+            if (state.currentPage === 'overview') renderOverviewModules();
+            if (state.currentPage.startsWith('mod-')) renderModulePage(state.currentPage);
+            updateModalReadButton();
+        }
+
+        function updateProgressUI() {
+            const total = lecturesData.length;
+            const done = lecturesData.filter(l => state.completedLectures.includes(l.id)).length;
+            const pct = Math.round((done / total) * 100);
+
+            document.getElementById('progressPercentBadge').textContent = `${pct}%`;
+            document.getElementById('progressCountText').textContent = `${done} из ${total}`;
+            document.getElementById('progressBarFill').style.width = `${pct}%`;
+        }
+
+        function resetProgress() {
+            state.completedLectures = [];
+            localStorage.removeItem('365inf_v2_completed');
+            updateProgressUI();
+            if (state.currentPage === 'overview') renderOverviewModules();
+            if (state.currentPage.startsWith('mod-')) renderModulePage(state.currentPage);
+            showToast('Прогресс прохождения 16 лекций сброшен');
+        }
+
+        function openLectureModal(lectureId) {
+            const lec = lecturesData.find(l => l.id === lectureId);
+            if (!lec) return;
+            state.activeModalLectureId = lectureId;
+            const mod = courseModules.find(m => m.id === lec.moduleId);
+            const materials = getMaterialsForLecture(lec);
+
+            document.getElementById('modalLectureNum').textContent = lec.number;
+            document.getElementById('modalLectureCat').textContent = mod ? `${mod.num}: ${mod.title}` : '';
+            document.getElementById('modalLectureTitle').textContent = lec.title;
+
+            document.getElementById('modalLectureBody').innerHTML = `
+                <div class="p-4 rounded-2xl bg-royal-50 border border-royal-200 text-sm text-slate-800">
+                    <strong class="text-royal-700 block mb-1 uppercase text-xs tracking-wider">Программа лекции по учебному плану:</strong>
+                    ${lec.programText}
+                </div>
+                ${lec.content}
+                <div class="pt-4 border-t border-royal-100 space-y-3">
+                    <h5 class="text-sm font-extrabold uppercase tracking-wider text-royal-700">Материалы к этой лекции с портала 365informatika:</h5>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        ${materials.map(m => `
+                            <a href="${m.url}" target="_blank" rel="noopener noreferrer" class="p-3.5 rounded-2xl bg-royal-50 hover:bg-royal-100 border border-royal-200 flex items-center justify-between gap-3 transition">
+                                <div>
+                                    <div class="text-[11px] font-bold uppercase text-royal-600">${m.type}</div>
+                                    <div class="text-sm font-bold text-slate-900">${m.title}</div>
+                                </div>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-royal-600"></i>
+                            </a>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            updateModalReadButton();
+            document.getElementById('lectureModal').classList.remove('hidden');
+        }
+
+        function updateModalReadButton() {
+            if (!state.activeModalLectureId) return;
+            const isDone = state.completedLectures.includes(state.activeModalLectureId);
+            const btn = document.getElementById('modalToggleReadBtn');
+            if (isDone) {
+                btn.className = 'px-5 py-2.5 rounded-xl font-bold text-sm transition flex items-center gap-2 bg-emerald-600 text-white';
+                btn.innerHTML = '<i class="fa-solid fa-circle-check"></i><span>Лекция изучена (Снять отметку)</span>';
+            } else {
+                btn.className = 'px-5 py-2.5 rounded-xl font-bold text-sm transition flex items-center gap-2 bg-royal-600 hover:bg-royal-700 text-white';
+                btn.innerHTML = '<i class="fa-solid fa-check"></i><span>Отметить лекцию как изученную</span>';
+            }
+        }
+
+        function toggleCurrentLectureRead() {
+            if (state.activeModalLectureId) toggleLectureRead(state.activeModalLectureId);
+        }
+
+        function closeLectureModal() {
+            document.getElementById('lectureModal').classList.add('hidden');
+            state.activeModalLectureId = null;
+        }
+
+        // =========================================================
+        // ДОБАВЛЕНИЕ СВОИХ ССЫЛОК К ЛЮБОЙ ИЗ 16 ЛЕКЦИЙ
+        // =========================================================
+        function openImportModal() {
+            const select = document.getElementById('resLectureSelect');
+            select.innerHTML = lecturesData.map(l => `<option value="${l.id}">${l.number}: ${l.title}</option>`).join('');
+            document.getElementById('importModal').classList.remove('hidden');
+        }
+
+        function closeImportModal() {
+            document.getElementById('importModal').classList.add('hidden');
+        }
+
+        function handleAddResourceToLecture(e) {
+            e.preventDefault();
+            const lecId = document.getElementById('resLectureSelect').value;
+            const type = document.getElementById('resTypeSelect').value;
+            const title = document.getElementById('resTitleInput').value.trim();
+            const url = document.getElementById('resUrlInput').value.trim();
+            if (!title || !url) return;
+
+            if (!state.customMaterials[lecId]) state.customMaterials[lecId] = [];
+            state.customMaterials[lecId].push({ type, title, url, icon: 'fa-link' });
+            localStorage.setItem('365inf_v2_custom_materials', JSON.stringify(state.customMaterials));
+
+            document.getElementById('resTitleInput').value = '';
+            document.getElementById('resUrlInput').value = '';
+            closeImportModal();
+
+            if (state.currentPage.startsWith('mod-')) renderModulePage(state.currentPage);
+            showToast('Материал успешно прикреплен к выбранной лекции!');
+        }
+
+        // =========================================================
+        // ЖИВАЯ ПЕСОЧНИЦА КОДА
+        // =========================================================
+        function loadSandboxPreset(key) {
+            const editor = document.getElementById('sandboxEditor');
+            if (!editor) return;
+            editor.value = sandboxPresets[key] || sandboxPresets.uiux;
+            updateSandboxPreview();
+        }
+
+        function updateSandboxPreview() {
+            const editor = document.getElementById('sandboxEditor');
+            const frame = document.getElementById('sandboxFrame');
+            if (editor && frame) frame.srcdoc = editor.value;
+        }
+
+        function copySandboxCode() {
+            const editor = document.getElementById('sandboxEditor');
+            editor.select();
+            document.execCommand('copy');
+            showToast('Код скопирован в буфер обмена');
+        }
+
+        let toastTimer = null;
+        function showToast(msg) {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastMessage').textContent = msg;
+            toast.classList.remove('hidden');
+            if (toastTimer) clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.add('hidden'), 3000);
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLectureModal();
+                closeImportModal();
+            }
+        });
+
+        window.onload = function () {
+            updateProgressUI();
+            renderOverviewModules();
+            renderResourcesPage();
+            loadSandboxPreset('uiux');
+        };
+    </script>
+</body>
+</html>
